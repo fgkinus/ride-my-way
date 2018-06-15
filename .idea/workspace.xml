@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6aa18ea-1f77-4030-bb40-d32f02596cd5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sighnin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sighnin.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,11 +17,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+            <state relative-caret-position="134">
+              <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sighnin.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/sighnin.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -84,9 +94,9 @@
         <option value="$PROJECT_DIR$/js/profile.js" />
         <option value="$PROJECT_DIR$/templates/profile2.html" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
-        <option value="$PROJECT_DIR$/templates/sighnin.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/templates/sighnin.html" />
       </list>
     </option>
   </component>
@@ -100,8 +110,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="235" />
-    <option name="y" value="-24" />
+    <option name="x" value="67" />
+    <option name="y" value="58" />
     <option name="width" value="809" />
     <option name="height" value="775" />
   </component>
@@ -119,6 +129,11 @@
             <path>
               <item name="ride-my-way" type="b2602c69:ProjectViewProjectNode" />
               <item name="ride-my-way" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ride-my-way" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ride-my-way" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -173,16 +188,30 @@
       <workItem from="1528830981959" duration="6747000" />
       <workItem from="1528881295573" duration="40129000" />
       <workItem from="1528964143352" duration="64709000" />
-      <workItem from="1529071439038" duration="87000" />
+      <workItem from="1529071439038" duration="2212000" />
     </task>
+    <task id="LOCAL-00001" summary="introduced inde.html for github.pages">
+      <created>1529071569870</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1529071569870</updated>
+    </task>
+    <task id="LOCAL-00002" summary="modified index.html for github.pages">
+      <created>1529072774009</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1529072774009</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151257000" />
+    <option name="totallyTimeSpent" value="153382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16517857" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -231,7 +260,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Introduces the bulk of features&#10;&#10;All basic features were introduced and implemented." />
-    <option name="LAST_COMMIT_MESSAGE" value="Introduces the bulk of features&#10;&#10;All basic features were introduced and implemented." />
+    <MESSAGE value="introduced inde.html for github.pages" />
+    <MESSAGE value="modified index.html for github.pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified index.html for github.pages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -537,13 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/sighnin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -571,8 +595,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+        <state relative-caret-position="134">
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/sighnin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
