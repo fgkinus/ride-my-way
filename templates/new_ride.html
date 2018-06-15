@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Francis Gitau">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style2.css">
+    <link rel="stylesheet" type="text/css" href="../css/nav-bar.css">
+    <link rel="stylesheet" type="text/css" href="../css/login-registration.css">
+    <script type="application/javascript" src="../js/js.js"></script>
+    <title> New Rides</title>
+</head>
+<body>
+ <div class="">
+     <div >
+         <a href="#" class="float" title="Close" onclick="parent.close_IFrame()">
+             <i class="material-icons my-float" >close</i>
+         </a>
+     </div>
+     <div id="add_trip" class="container-register modal">
+         <div id="title">
+             <i class="material-icons lock">lock</i> Add Trip
+         </div>
+         <form>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons">trip_origin</i>
+                 </div>
+                 <input id="start" placeholder="starting point" type="text" required class="validate" autocomplete="off">
+             </div>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons ">add_location</i>
+                 </div>
+                 <input id="destination" placeholder="destination" type="text" required class="validate" autocomplete="off">
+             </div>
+             <div class="clearfix"></div>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons">departure_board</i>
+                 </div>
+                 <input id="start_time" placeholder="departure time" type="text" required class="validate" autocomplete="off">
+             </div>
+             <div class="clearfix"></div>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons">directions_car</i>
+                 </div>
+                 <input id="model" placeholder="Vehicle Model" type="text" required class="validate" autocomplete="off">
+             </div>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons">directions_car</i>
+                 </div>
+                 <input id="capacity" placeholder="Vehicle Capacity" type="text" required class="validate" autocomplete="off">
+             </div>
+             <div class="clearfix"></div>
+             <div class="input">
+                 <div class="input-addon">
+                     <i class="material-icons">navigation</i>
+                 </div>
+                 <input id="route" placeholder="route" type="text"  class="validate" autocomplete="off">
+             </div>
+             <div class="clearfix"></div>
+
+             <div class="remember-me">
+                 <input type="checkbox" required>
+                 <span style="color: #DDD">Are you sure you want to offer this ride?</span>
+             </div>
+             <div class="clearfix"></div>
+            <div>
+                <input type="submit" value="Add" />
+            </div>
+
+         </form>
+
+     </div>
+     <footer></footer>
+ </div>
+</body>
+</html>

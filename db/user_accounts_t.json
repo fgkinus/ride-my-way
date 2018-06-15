@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "first_name": "john",
+    "second_name": "smith",
+    "username": "jsmith",
+    "email": "jsmith@email.com",
+    "password": "password",
+    "user_type": "driver"
+  },
+  {
+    "id": 2,
+    "first_name": "jane",
+    "second_name": "doe",
+    "username": "jdoe",
+    "email": "jdoe@email.com",
+    "password": "password",
+    "user_type": "driver"
+  },
+  {
+    "id": 3,
+    "first_name": "jack",
+    "second_name": "ripper",
+    "username": "jrip",
+    "email": "jripper@email.com",
+    "password": "password",
+    "user_type": "passenger"
+  },
+  {
+    "id": 4,
+    "first_name": "norman",
+    "second_name": "bates",
+    "username": "psycho",
+    "email": "psycho@email.com",
+    "password": "password",
+    "user_type": "passenger"
+  }
+]

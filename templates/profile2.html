@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style2.css">
+    <link rel="stylesheet" type="text/css" href="../css/nav-bar.css">
+    <link rel="stylesheet" type="text/css" href="../css/login-registration.css">
+    <link rel="stylesheet" type="text/css" href="../css/w3.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+
+<nav id="navbar" class="sticky">
+    <div id="menu" class="menu">
+        <a class="sitename" href="fixed-navigation-bar.html"> Ride My Way</a>
+        <button class="w3-button w3-teal w3-xlarge w3-right" onclick="w3_open()">☰</button>
+    </div>
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-bar-block" style="width:200px;right:0;" id="mySidebar">
+        <button class="w3-bar-item w3-button " onclick="w3_close()">Close &times;</button>
+        <a href="#" class="w3-bar-item w3-button">Home</a>
+        <a href="#" class="w3-bar-item w3-button">support</a>
+        <a href="#" class="w3-bar-item w3-button">sign out</a>
+    </div>
+</nav>
+<div class="wrapper">
+    <!--Profile content-->
+    <div class="box sidebar container-register">
+        <section >
+            <div>
+                <div id="title" >
+                    <i class="material-icons face">face</i> Profile
+                </div>
+                <div>
+                    <img class="icon" src="../img/male_avatar.png" alt="user" title="Profle image">
+                </div>
+                <hr class="clearfix">
+                    <a href="#" onclick="editProfile()">edit profile?</a>
+                    <input type="submit"  value="Save" id="save" hidden/>
+                <hr class="clearfix">
+                <form id="user-details" >
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">username</i>
+                        </div>
+                        <input readonly id="user-name" value="user name" type="text" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">first</i>
+                        </div>
+                        <input readonly id="first-name" value="first name" type="text" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">second</i>
+                        </div>
+                        <input readonly id="second-name" value="second name" type="text" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">email</i>
+                        </div>
+                        <input readonly id="email" value="email@host.domain" type="email" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">Password</i>
+                        </div>
+                        <input readonly id="password" value="random password" type="password" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+                <hr class="clearfix">
+                <form id="trip-details">
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">Trips given</i>
+                        </div>
+                        <input readonly id="trips-given" value="3" type="text" required class="validate" autocomplete="off">
+                    </div>
+                    <div class="input">
+                        <div class="input-addon">
+                            <i class="label">Trips given</i>
+                        </div>
+                        <input readonly id="trips-taken" value="3" type="text" required class="validate" autocomplete="off">
+                    </div>
+                </form>
+                <div class="clearfix">
+                    <hr>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--sidebar Content-->
+    <div class="box sidebar2">
+        <h3>Trips Taken</h3>
+        <div class="wrapper2" >
+            <ul id="trip-requests">
+
+            </ul>
+        </div>
+    </div>
+    <!--center content-->
+    <div class="box content">
+        <h3>Trips Given</h3>
+        <div class="wrapper2" >
+            <ul id="my-trip-offers">
+
+            </ul>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="box footer">
+        <iframe id="container-footer" src="footer.html" frameborder="0" wmode="0"></iframe>
+    </div>
+</div>
+<footer>
+    <template id="trip-request">
+        <li>
+            <input type="checkbox" id="ride-request">
+            <label for="ride-request" class="first">
+                <span><img class="thumbnail" src="../img/passenger.png"></span>
+                You were driven by <span class="username">username </span>  to <span class="destination"> destination</span>
+            </label>
+            <ul>
+                <li hidden>Trip id :<span class="trip-id"></span></li>
+                <li>Time added :<span class="time-added"></span></li>
+                <li>Destination :<span class="destination"></span></li>
+                <li>From        :<span class="origin"></span></li>
+                <li>Departure   :<span class="departure-time"></span></li>
+                <li>route       :<span class="route"></span></li>
+                <li>vehicle     :<span class="vehicle"></span></li>
+                <li>vehicle-capacity     :<span class="vehicle-capacity"></span></li>
+                <!--<button class="myButton material-icons" title="approve ride request">check</button>-->
+                <!--<button class="myButton material-icons" title="reject  ride request">cancel</button>-->
+            </ul>
+        </li>
+    </template>
+    <template id="trip-offer">
+        <li>
+            <input type="checkbox" id="list-item-1">
+            <label for="list-item-1" class="first">
+                <span><img class="thumbnail" src="../img/driver.png"></span>
+                <span class="username">username </span> gave a trip to
+                <span class="destination"> destination</span>
+            </label>
+            <ul>
+                <li hidden>Trip id :<span class="trip-id"></span></li>
+                <li>Time added :<span class="time-added"></span></li>
+                <li>Destination :<span class="destination"></span></li>
+                <li>From        :<span class="origin"></span></li>
+                <li>Departure   :<span class="departure-time"></span></li>
+                <li>route       :<span class="route"></span></li>
+                <li>vehicle     :<span class="vehicle"></span></li>
+                <li>vehicle-capacity     :<span class="vehicle-capacity"></span></li>
+                <li>
+                    <button class="myButton material-icons" title="request ride">check</button>
+                    <button class="myButton material-icons" title="share ride">share</button>
+                </li>
+            </ul>
+        </li>
+    </template>
+    <script type="application/javascript" src="../js/profile.js"></script>
+    <script type="application/javascript" src="../js/js.js"></script>
+</footer>
+
+</body>
+</html>
