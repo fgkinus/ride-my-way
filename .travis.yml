@@ -2,4 +2,4 @@ language: python
 branches:
   only:
   - master
-  - stable
+  - api-v1
