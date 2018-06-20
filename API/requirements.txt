@@ -1,0 +1,7 @@
+Flask
+Flask-APi
+pylint
+pytest
+flask-restplus
+flask_jwt_extended
+passlib
