@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2c653218-8cd3-4e32-a08d-083f15e6d338" name="Default" comment="" />
+    <list default="true" id="2c653218-8cd3-4e32-a08d-083f15e6d338" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/V1/rides/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/V1/rides/__init__.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/API$API.coverage" NAME="API Coverage Results" MODIFIED="1529493145340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/API$API.coverage" NAME="API Coverage Results" MODIFIED="1529498493142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf>
@@ -74,23 +76,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/V1/rides/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-215">
-              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="161">
+              <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
               <folding>
-                <element signature="e#60#96#0" expanded="true" />
+                <element signature="e#61#97#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/V1/rides/Resources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1027">
-              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            <state relative-caret-position="268">
+              <caret line="91" column="17" lean-forward="true" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -133,9 +135,9 @@
         <option value="$PROJECT_DIR$/V1/users/models.py" />
         <option value="$PROJECT_DIR$/V1/users/__init__.py" />
         <option value="$PROJECT_DIR$/V1/users/Resources.py" />
-        <option value="$PROJECT_DIR$/V1/rides/__init__.py" />
         <option value="$PROJECT_DIR$/V1/rides/models.py" />
         <option value="$PROJECT_DIR$/V1/rides/Resources.py" />
+        <option value="$PROJECT_DIR$/V1/rides/__init__.py" />
       </list>
     </option>
   </component>
@@ -345,16 +347,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/V1/rides/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-215">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-          <folding>
-            <element signature="e#60#96#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/V1/rides/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -367,10 +359,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/V1/rides/Resources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1027">
-          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        <state relative-caret-position="268">
+          <caret line="91" column="17" lean-forward="true" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/V1/rides/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="e#61#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
