@@ -6,6 +6,8 @@ users to log in and to log out of the application.
 from flask import Blueprint, jsonify
 from flask_restplus import Api
 
+from . import Resources as resources
+
 # Declare the blueprint
 users_blueprint = Blueprint('users', __name__)
 
@@ -22,3 +24,11 @@ def show():
             'message': 'authentication Endpoint'
         }
     )
+
+
+# Users endpoints
+api.add_resource(resources.UserList, '/users')
+api.add_resource(resources.UserLogin, '/login')
+api.add_resource(resources.UserLogout, '/logout')
+api.add_resource(resources.TokenRefresh, '/refresh')
+api.add_resource(resources.UserRegistration, '/register')
