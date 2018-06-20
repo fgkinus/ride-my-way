@@ -10,7 +10,7 @@ def register_blueprints(app):
     from .rides import rides_blueprint
 
     app.register_blueprint(users_blueprint, url_prefix='/api/v1/auth')
-    app.register_blueprint(rides_blueprint, url_prefix='/api/v1/')
+    app.register_blueprint(rides_blueprint, url_prefix='/api/v1')
 
 
 def create_app(config_name):
