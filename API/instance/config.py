@@ -43,4 +43,6 @@ APP_CONFIG = {
     'staging': StagingConfig,
     'production': ProductionConfig,
 }
-CACHE = SimpleCache()
+#  a cache to store session dat while server is running
+CACHE = SimpleCache()  # simple cache to store session data.
+

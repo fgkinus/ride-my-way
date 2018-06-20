@@ -5,3 +5,4 @@ pytest
 flask-restplus
 flask_jwt_extended
 passlib
+werkzeug
