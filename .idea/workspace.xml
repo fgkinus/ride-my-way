@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6aa18ea-1f77-4030-bb40-d32f02596cd5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="d6aa18ea-1f77-4030-bb40-d32f02596cd5" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -275,7 +272,7 @@
       <workItem from="1528830981959" duration="6747000" />
       <workItem from="1528881295573" duration="40129000" />
       <workItem from="1528964143352" duration="64709000" />
-      <workItem from="1529071439038" duration="6710000" />
+      <workItem from="1529071439038" duration="7911000" />
     </task>
     <task id="LOCAL-00001" summary="introduced inde.html for github.pages">
       <created>1529071569870</created>
@@ -319,15 +316,21 @@
       <option name="project" value="LOCAL" />
       <updated>1529081997678</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixed styling on landing page">
+      <created>1529082643125</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1529082643125</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157880000" />
+    <option name="totallyTimeSpent" value="159081000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="119" y="45" width="809" height="775" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.38651103" />
       <window_info anchor="bottom" id="TODO" order="6" />
