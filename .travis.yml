@@ -1,5 +1,4 @@
 language: python
 branches:
   only:
-  - master
   - api-v1
