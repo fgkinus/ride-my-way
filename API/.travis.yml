@@ -8,3 +8,9 @@ install:
   - pip install
 script:
   - pytest
+
+# whitelist
+branches:
+  only:
+    - master
+    - api-v1
