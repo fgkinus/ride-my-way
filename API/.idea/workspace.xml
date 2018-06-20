@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2c653218-8cd3-4e32-a08d-083f15e6d338" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/V1/rides/Resources.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/V1/rides/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/V1/rides/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/V1/rides/__init__.py" afterDir="false" />
-    </list>
+    <list default="true" id="2c653218-8cd3-4e32-a08d-083f15e6d338" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,12 +86,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/V1/rides/Resources.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1027">
+              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/V1/rides/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="213">
@@ -131,8 +134,8 @@
         <option value="$PROJECT_DIR$/V1/users/__init__.py" />
         <option value="$PROJECT_DIR$/V1/users/Resources.py" />
         <option value="$PROJECT_DIR$/V1/rides/__init__.py" />
-        <option value="$PROJECT_DIR$/V1/rides/Resources.py" />
         <option value="$PROJECT_DIR$/V1/rides/models.py" />
+        <option value="$PROJECT_DIR$/V1/rides/Resources.py" />
       </list>
     </option>
   </component>
@@ -352,15 +355,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/V1/rides/Resources.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/V1/rides/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="197" lean-forward="true" selection-start-line="197" selection-end-line="197" />
           <folding>
             <element signature="e#2360#3847#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/V1/rides/Resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1027">
+          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
