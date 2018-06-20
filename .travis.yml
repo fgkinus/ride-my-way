@@ -11,4 +11,7 @@ script: pytest
 deploy:
   provider: heroku
   api_key:
-    secure: "21797ec9-86ea-47a1-bf56-c421565d10d6"
+    secure: "637f46b6-d9d3-4c0d-a436-a7c552018a89"
+  app: Ride-my-Way
+  on:
+    branch: project-restructured
