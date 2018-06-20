@@ -1,7 +1,7 @@
 from flask_jwt_extended import JWTManager
 from flask_restplus import Api
 
-from V1 import create_app, register_blueprints
+from v1 import create_app, register_blueprints
 
 app = create_app('development')  # create the Flask Instance
 # api instance is instantiated

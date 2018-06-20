@@ -4,7 +4,7 @@ Initialize the rides Package and instantiate the API
 from flask import Blueprint, jsonify
 from flask_restplus import Api
 
-from V1.rides.Resources import ListRideOffers
+from v1.rides.Resources import ListRideOffers
 
 
 rides_blueprint = Blueprint('rides', __name__)

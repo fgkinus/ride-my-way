@@ -3,7 +3,7 @@ from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Resource, reqparse
 
-from V1.rides import models
+from v1.rides import models
 
 # define  request parsers and args
 ride_parser = reqparse.RequestParser()
@@ -104,16 +104,16 @@ class AddRideRequest(Resource):
             }
 
         data = dict(
-            id=len(models.trip_requested)+1,
+            id=len(models.trip_requested) + 1,
             trip_id=offer_id,
             requester=username,
             time=time.strftime("%c")
         )
         models.trip_requested.append(data)  # append data to list
         return {
-            'message': 'Trip request created',
-            'details': data
-        }
+                   'message': 'Trip request created',
+                   'details': data
+               }, 201
 
 
 class ListRideRequests(Resource):

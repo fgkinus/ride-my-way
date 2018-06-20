@@ -3,8 +3,8 @@ from flask_jwt_extended import jwt_required, create_access_token, create_refresh
     get_jwt_identity
 from flask_restplus import reqparse, Resource
 
-from V1.users import models
-from V1.users.models import verify_hash
+from v1.users import models
+from v1.users.models import verify_hash
 from instance.config import CACHE
 
 login_parser = reqparse.RequestParser()
