@@ -1,7 +1,7 @@
 from flask import Flask
 import os
 
-from instance.config import APP_CONFIG
+from config import APP_CONFIG
 
 
 def register_blueprints(app):
@@ -18,6 +18,6 @@ def create_app(config_name):
 
     app = Flask(__name__)
     app.config.from_object(APP_CONFIG[config_name])
-    app.config.from_pyfile(os.getcwd() + "\\instance\\config.py")
+    app.config.from_pyfile(os.path.join(os.getcwd(), "config.py"))
 
     return app

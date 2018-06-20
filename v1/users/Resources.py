@@ -5,7 +5,7 @@ from flask_restplus import reqparse, Resource
 
 from v1.users import models
 from v1.users.models import verify_hash
-from instance.config import CACHE
+from config import CACHE
 
 login_parser = reqparse.RequestParser()
 login_parser.add_argument('username', help='This field cannot be blank', required=True)
