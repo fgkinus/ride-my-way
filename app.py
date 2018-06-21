@@ -26,7 +26,7 @@ errors = {
 api = Api(
     app, version='1.0',
     title='RideMyWay API',
-    description="The API to v1-My-Way ride sharing platform",
+    description="The API to v1-My-Way ride sharing platform. To see sample login credentials navigate to '/api/vi/auth'",
     errors=errors
 )
 # register blueprints
