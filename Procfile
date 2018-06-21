@@ -1,1 +1,1 @@
-web: gunicorn app:ride-my-way-v1
+web: gunicorn app:app
