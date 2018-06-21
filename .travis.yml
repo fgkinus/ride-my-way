@@ -16,3 +16,5 @@ deploy:
     branch: api-v1-restructured
 script: pytest
 
+after_success: coveralls
+
