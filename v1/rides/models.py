@@ -195,3 +195,15 @@ trip_offers = [
         "driver": "jmsmith"
     }
 ]
+request_respons = [
+    {
+        "id": 1,
+        "req_id": 2,
+        "response": "accepted"
+    },
+    {
+        "id": 2,
+        "req_id": 1,
+        "response": "rejected"
+    }
+]
