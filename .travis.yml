@@ -13,6 +13,8 @@ deploy:
     secure: "637f46b6-d9d3-4c0d-a436-a7c552018a89"
   app: Ride-my-Way
   on:
-    branch: project-restructured
+    branch: api-v1-restructured
 script: pytest
+
+after_success: coveralls
 

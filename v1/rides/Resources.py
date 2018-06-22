@@ -122,3 +122,28 @@ class ListRideRequests(Resource):
     @jwt_required
     def get(self):
         return jsonify({'rides': models.trip_requested})
+
+
+########################################################################################################
+class RespondToRequest(Resource):
+    """ Add responses to ride requests for drivers"""
+
+    @jwt_required
+    def post(self, req_id, response):
+        req = [req for req in models.trip_requested if req['id'] == req_id]
+        if len(req) == 1:
+            response = dict(
+                id=len(models.request_respons) + 1,
+                req_id=req_id,
+                response=response
+            )
+            models.request_respons.append(response)
+            return jsonify({
+                'request': req[0]
+            }), 201
+        else:
+            return jsonify(
+                {
+                    'message': 'ride not found'
+                }, 200
+            )
