@@ -207,3 +207,19 @@ request_respons = [
         "response": "rejected"
     }
 ]
+
+from v1 import db
+
+
+class rideOffers(db.Model):
+    """ This class represents the ride table"""
+
+    __tablename__ = 'rideoffers'
+    id = db.Column(db.Integer, primary_key=True)
+    origin = db.Column(db.String(255), nullable=False)
+    destination = db.Column(db.String(255), nullable=False)
+    departure_time = db.Column(db.DateTime, default = db.func.current_timestamp())
+    vehicle_model = db.Column(db.String(255))
+    vehicle_capacty: db.Column(db.Integer)
+    route = db.Column(db.String(255))
+    "time_aded": None,

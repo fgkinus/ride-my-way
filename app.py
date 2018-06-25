@@ -1,10 +1,16 @@
 from flask_jwt_extended import JWTManager
 from flask_restplus import Api
 from jwt import exceptions as jwt_exceptions
+import os
 
 from v1 import create_app, register_blueprints
 
-app = create_app('development')  # create the Flask Instance
+
+config_name = os.getenv('APP_SETTINGS')
+app = create_app(config_name)  # create the Flask Instance
+# configure db
+
+
 # simple error handling
 errors = {
     'UserAlreadyExistsError': {
