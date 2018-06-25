@@ -6,6 +6,7 @@ from flask_restplus import Resource, reqparse
 from v1.rides import models
 
 # define  request parsers and args
+
 ride_parser = reqparse.RequestParser()
 ride_parser.add_argument('id', help='This field can be blank', required=False)
 ride_parser.add_argument('driver', help='This field cannot be blank', required=True)
@@ -26,7 +27,6 @@ request_parser.add_argument('time_added', help='This field cannot be blank', req
 
 class ListRideOffers(Resource):
     """A view to list all ride offers and individual rides"""
-
     @jwt_required
     def get(self):
         return jsonify({'rides': models.trip_offers})
