@@ -5,7 +5,6 @@ from flask_restplus import reqparse, Resource
 
 from v1.users import models
 from v1.users.models import verify_hash
-from config import CACHE
 
 login_parser = reqparse.RequestParser()
 login_parser.add_argument('username', help='This field cannot be blank', required=True)
@@ -58,7 +57,6 @@ class UserLogin(Resource):
             if len(user) == 1:
                 access_token = create_access_token(identity=data['username'])
                 refresh_token = create_refresh_token(identity=data['username'])
-                CACHE.set('username', data['username'], timeout=5 * 60)
                 return jsonify({
                     'message': 'Logged in as {}'.format(data['username']),
                     'access_token': access_token,

@@ -1,7 +1,10 @@
 from flask import Flask
-import os
+from flask_sqlalchemy import SQLAlchemy
 
 from config import APP_CONFIG
+
+# initialize sql-alchemy
+db = SQLAlchemy()
 
 
 def register_blueprints(app):
@@ -18,6 +21,7 @@ def create_app(config_name):
 
     app = Flask(__name__)
     app.config.from_object(APP_CONFIG[config_name])
-    app.config.from_pyfile(os.path.join(os.getcwd(), "config.py"))
-
+    app.config.from_pyfile('config.py')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
     return app

@@ -1,6 +1,6 @@
 import os
 
-from werkzeug.contrib.cache import SimpleCache
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
@@ -9,7 +9,9 @@ class Config(object):
     DEBUG = False
     CSRF_ENABLED = True
     SECRET = os.getenv('SECRET')
-
+    TESTING = False
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
     """Development configuration"""
@@ -20,14 +22,14 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     """Configurations for Testing"""
 
-    Testing = True
-    DEBUG = True
+    TESTING = True
 
 
 class StagingConfig(Config):
     """Configurations for staging"""
 
-    DEBUG = False
+    DEBUG = True
+    DEVELOPMENT = True
 
 
 class ProductionConfig(Config):
@@ -43,6 +45,3 @@ APP_CONFIG = {
     'staging': StagingConfig,
     'production': ProductionConfig,
 }
-#  a cache to store session dat while server is running
-CACHE = SimpleCache()  # simple cache to store session data.
-
