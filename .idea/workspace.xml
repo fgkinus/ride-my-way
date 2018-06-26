@@ -11,7 +11,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/ride_my_way$API.coverage" NAME="API Coverage Results" MODIFIED="1530011415670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ride_my_way$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1530016708053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ride_my_way$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1530023542818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/API$API.coverage" NAME="API Coverage Results" MODIFIED="1529519434866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -49,10 +49,13 @@
       <file leaf-file-name="Resources.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/v1/users/Resources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="81" column="32" lean-forward="true" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
+            <state relative-caret-position="215">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#1422#1711#0" />
+                <element signature="e#1261#1794#0" />
+                <element signature="e#2319#3495#0" />
               </folding>
             </state>
           </provider>
@@ -242,7 +245,9 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="launchJavascriptDebuger" value="false" />
     </configuration>
-    <configuration name="Flask (app.py)" type="Python.FlaskServer" factoryName="Flask server" temporary="true" nameIsGenerated="true">
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" factoryName="Flask server" singleton="true" temporary="true" nameIsGenerated="true">
+      <option name="additionalOptions" value="" />
+      <option name="application" value="" />
       <module name="API" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
       <option name="targetType" value="PATH" />
@@ -258,8 +263,8 @@
     </configuration>
     <list>
       <item itemvalue="Flask server.API" />
-      <item itemvalue="Python.test_rides" />
       <item itemvalue="Flask server.Flask (app.py)" />
+      <item itemvalue="Python.test_rides" />
     </list>
     <recent_temporary>
       <list>
@@ -298,7 +303,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5015129" side_tool="true" weight="0.23137876" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.329582" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.6228209" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.3312203" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49842766" visible="true" weight="0.3312203" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49848714" weight="0.2393027" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" weight="0.27716535" />
@@ -704,10 +709,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/v1/users/Resources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="81" column="32" lean-forward="true" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
+        <state relative-caret-position="215">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1422#1711#0" />
+            <element signature="e#1261#1794#0" />
+            <element signature="e#2319#3495#0" />
           </folding>
         </state>
       </provider>

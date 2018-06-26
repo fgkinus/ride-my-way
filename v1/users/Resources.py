@@ -73,22 +73,30 @@ class UserLogin(Resource):
         """
         data = login_parser.parse_args()
         try:
-            query = """SELECT username,first_name,second_name,email FROM user_accounts WHERE username = %s"""
-            cursor.execute(query, (data['username'],))
-            user = cursor.fetchall()
+            query = """SELECT username,first_name,second_name,email FROM user_accounts 
+WHERE username = %s AND password = %s"""
+            cursor.execute(query, (data['username'], data['password']))
+            try:
+                user = cursor.fetchall()
+            except Exception:
+                raise Exception("error fetching")
             if len(user) == 1:
                 access_token = create_access_token(identity=data['username'])
                 refresh_token = create_refresh_token(identity=data['username'])
-                return jsonify({
+                return {
                     'message': 'Logged in as {}'.format(data['username']),
                     'access_token': access_token,
                     'refresh_token': refresh_token,
                     'user': user
-                })
+                }
+            else:
+                return {
+                           'message': 'invalid credentials'
+                       }, 401
         except:
-            return jsonify({
+            return {
                 'message': 'Error processing request'
-            }), 400
+            }, 400
 
 
 class UserLogout(Resource):
