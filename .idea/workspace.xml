@@ -11,7 +11,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/ride_my_way$API.coverage" NAME="API Coverage Results" MODIFIED="1530011415670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ride_my_way$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1530045158652" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ride_my_way$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1530054451378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/API$API.coverage" NAME="API Coverage Results" MODIFIED="1529519434866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -46,17 +46,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v1/users/Resources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="123" column="34" lean-forward="true" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="34" />
+            <state relative-caret-position="115">
+              <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="67" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#1411#1762#0" />
-                <element signature="e#1752#2285#0" />
-                <element signature="e#2319#3495#0" />
-                <element signature="e#3794#4017#0" />
+                <element signature="e#4126#4608#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -92,11 +101,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Resources.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/v1/rides/Resources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-230">
-              <caret line="37" column="17" lean-forward="true" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+            <state relative-caret-position="787">
+              <caret line="85" column="46" lean-forward="true" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#2179#2689#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,13 +152,13 @@
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/db/db.py" />
-        <option value="$PROJECT_DIR$/app.py" />
-        <option value="$PROJECT_DIR$/v1/rides/Resources.py" />
         <option value="$PROJECT_DIR$/v1/users/__init__.py" />
         <option value="$PROJECT_DIR$/v1/__init__.py" />
         <option value="$PROJECT_DIR$/db/utils.py" />
-        <option value="$PROJECT_DIR$/v1/users/Resources.py" />
         <option value="$PROJECT_DIR$/db/__init__.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/v1/users/Resources.py" />
+        <option value="$PROJECT_DIR$/v1/rides/Resources.py" />
       </list>
     </option>
   </component>
@@ -160,7 +173,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="808" />
+    <option name="width" value="695" />
     <option name="height" value="775" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -317,17 +330,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="808" height="775" extended-state="0" />
+    <frame x="-7" y="0" width="695" height="775" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32967034" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5015129" side_tool="true" weight="0.23137876" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329582" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="11" visible="true" weight="0.33118972" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49842766" weight="0.33118972" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.3296355" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49842766" visible="true" weight="0.33118972" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.3290469" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.2393027" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.27576974" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.23794213" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" weight="0.16493195" />
       <window_info anchor="right" id="R Packages" order="4" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="R Graphics" order="3" />
@@ -350,25 +364,25 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329582" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.27630582" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.16493195" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.51797754" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32967034" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49842766" visible="true" weight="0.3312203" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3280507" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49842766" visible="true" weight="0.33118972" />
       <window_info anchor="right" id="R Packages" order="4" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39936608" />
-      <window_info anchor="right" id="Database" order="5" weight="0.34596375" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3279743" />
+      <window_info anchor="right" id="Database" order="5" weight="0.34538153" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.2393027" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5015129" side_tool="true" weight="0.23137876" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="SciView" order="6" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39936608" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.3290469" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.3312203" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.33118972" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,16 +637,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils.py" />
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f9d40481-fa26-4c30-969f-c7d51f76db61/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -708,26 +712,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v1/rides/Resources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="37" column="17" lean-forward="true" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/v1/users/Resources.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="123" column="34" lean-forward="true" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="34" />
+        <state relative-caret-position="115">
+          <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="67" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
             <element signature="e#1411#1762#0" />
-            <element signature="e#1752#2285#0" />
-            <element signature="e#2319#3495#0" />
-            <element signature="e#3794#4017#0" />
+            <element signature="e#4126#4608#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v1/rides/Resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="787">
+          <caret line="85" column="46" lean-forward="true" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#2179#2689#0" />
           </folding>
         </state>
       </provider>

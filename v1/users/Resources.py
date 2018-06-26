@@ -26,6 +26,14 @@ reg_parser.add_argument('email', help='This field cannot be blank', required=Tru
 reg_parser.add_argument('password', help='This field cannot be blank', required=True)
 reg_parser.add_argument('user_type', help='This field cannot be blank', required=True)
 
+edit_user_parser = reqparse.RequestParser()
+edit_user_parser.add_argument('username', help='This field cannot be blank', required=True)
+edit_user_parser.add_argument('first_name', help='This field  be blank', required=False)
+edit_user_parser.add_argument('second_name', help='This field  be blank', required=False)
+edit_user_parser.add_argument('email', help='This field  be blank', required=False)
+edit_user_parser.add_argument('password', help='This field  cannot be blank', required=True)
+edit_user_parser.add_argument('user_type', help='This field  be blank', required=False)
+
 # output parsers
 user_fields = dict(
     username=fields.String,
@@ -78,6 +86,54 @@ class UserRegistration(Resource):
                 'refresh_token': refresh_token,
                 'user': data
                 }, 201
+
+    @jwt_required
+    def patch(self):
+        data = edit_user_parser.parse_args()
+        current_user = get_jwt_identity()
+        query = """SELECT username,first_name,second_name,email,password,user_type FROM user_accounts 
+                              WHERE username = %s AND password = %s"""
+        param = (current_user, data['password'])
+        # get current logged in user details
+        try:
+            user = query_db(DB[0], query, param)
+            if len(user) != 1:
+                raise Exception("invalid password")
+        except Exception:
+            return {
+                       "message": "invalid Credentials",
+                   }, 401
+        # get all non null data entries
+        for key in data.keys():
+            if data[key] is None:
+                data[key] = user[0][key]
+        # now run query to patch
+        query = """
+        UPDATE user_accounts
+SET username  = %s,
+  first_name  = %s,
+  second_name = %s,
+  email       = %s,
+  password    = %s,
+  user_type   = %s
+WHERE username = %s     
+RETURNING TRUE    
+        """
+        param = (data['username'], data['first_name'], data['second_name'],
+                 data['email'], data['password'], data['user_type'], current_user)
+        query_db(conn=DB[0], query=query, args=param)
+        try:
+            query_db(conn=DB[0], query=query, args=param)
+            access_token = create_access_token(identity=data['username'])
+            return {
+                'message': 'user details updated',
+                'access-token' : access_token,
+                'details': data
+            }
+        except:
+            return {
+                       'message': 'Could not update your details'
+                   }, 500
 
 
 class UserLogin(Resource):

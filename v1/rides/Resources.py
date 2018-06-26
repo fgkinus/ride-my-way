@@ -1,9 +1,18 @@
+import datetime
 import time
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from flask_restplus import Resource, reqparse
+from flask_restplus import Resource, reqparse, fields, marshal_with
 
+
+from v1 import connect_db
 from v1.rides import models
+from db.utils import query_db
+
+# def database connection
+# database connection
+DB = connect_db('rmw', 'postgres', '')
+cursor = DB[1]
 
 # define  request parsers and args
 
@@ -27,9 +36,21 @@ request_parser.add_argument('time_added', help='This field cannot be blank', req
 
 class ListRideOffers(Resource):
     """A view to list all ride offers and individual rides"""
+
     @jwt_required
     def get(self):
-        return jsonify({'rides': models.trip_offers})
+        query = """SELECT * FROM trips"""
+        try:
+            ride_offers = query_db(conn=DB[0], query=query, args=None)
+            return jsonify(
+                {
+                    'ride-offers': ride_offers
+                }
+            )
+        except:
+            return {
+                       'message': ' Error getting rides list'
+                   }, 500
 
 
 class GetRideOffer(Resource):
@@ -37,31 +58,33 @@ class GetRideOffer(Resource):
 
     @jwt_required
     def get(self, offer_id):
-
-
-        for offer in models.trip_offers:
-            if offer['id'] == offer_id:
-                return {'ride-offer': offer}, 200
-            else:
-                if models.trip_offers.index(offer) == len(models.trip_offers) - 1:
-                    return {
-                               'message': 'trip offer not found'
-                           }, 204
+        query = """SELECT * FROM trips WHERE id=%s"""
+        param = (offer_id,)
+        try:
+            ride_offer = query_db(conn=DB[0], query=query, args=param)
+            return jsonify(
+                {
+                    'ride-offers': ride_offer
+                }
+            )
+        except:
+            return {
+                       'message': ' Error getting ride list'
+                   }, 500
 
 
 class AddRideOffer(Resource):
     @jwt_required
     def post(self):
         data = ride_parser.parse_args()
-        ride_id = len(models.trip_offers) + 1
-        data['id'] = ride_id
-        data['time_added'] = time.strftime("%c")
-        tmp = models.trip_offers
-        # append data to the existing list
-        tmp.append(data)
-        return {
-                   'item': data,
-               }, 201
+        query = """INSERT INTO trips (origin,destination,driver,route,vehicle_model,vehicle_capacty,departure_time)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s);"""
+
+        depart = datetime.datetime.now(datetime.timezone.utc)
+        data['departure_time'] = depart
+        param = (data['origin'], data['destination'], data['driver'], data['route'], data['vehicle_model'],
+                 data['vehicle_capacity'], data['departure_time'])
+        query_db(DB[0], query, param)
 
 
 ########################################################################################################

@@ -17,10 +17,10 @@ register_blueprints(app=app)
 
 # configure JWT
 app.config['JWT_SECRET_KEY'] = '$pbkdf2-sha256$29000$I.T8f8/ZG8M4J0QIwTgHIA$.9wCvRZECxd7/yvHttEgoHzpvgjdhjizq5ySewKfeQc'
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+# app.config['JWT_BLACKLIST_ENABLED'] = True
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 jwt = JWTManager(app)
-
 
 if __name__ == '__main__':
     app.run()
