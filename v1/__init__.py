@@ -1,10 +1,17 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+import os
+from config import APP_CONFIG, basedir
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
-from config import APP_CONFIG
 
-# initialize sql-alchemy
-db = SQLAlchemy()
+def connect_db(db_name, user, password):
+    try:
+        conn = psycopg2.connect(database=db_name, user=user, password=password)
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        return conn, cursor
+    except Exception:
+        raise psycopg2.DatabaseError
 
 
 def register_blueprints(app):
@@ -21,7 +28,5 @@ def create_app(config_name):
 
     app = Flask(__name__)
     app.config.from_object(APP_CONFIG[config_name])
-    app.config.from_pyfile('config.py')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.init_app(app)
+    app.config.from_pyfile(os.path.join(basedir, 'config.py'))
     return app

@@ -6,7 +6,7 @@ users to log in and to log out of the application.
 from flask import Blueprint, jsonify
 from flask_restplus import Api
 
-
+from v1 import connect_db
 from v1.users import models
 from . import Resources as resources
 

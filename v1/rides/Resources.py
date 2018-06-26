@@ -37,6 +37,8 @@ class GetRideOffer(Resource):
 
     @jwt_required
     def get(self, offer_id):
+
+
         for offer in models.trip_offers:
             if offer['id'] == offer_id:
                 return {'ride-offer': offer}, 200

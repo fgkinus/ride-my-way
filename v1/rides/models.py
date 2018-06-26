@@ -208,18 +208,29 @@ request_respons = [
     }
 ]
 
-from v1 import db
-
-
-class rideOffers(db.Model):
-    """ This class represents the ride table"""
-
-    __tablename__ = 'rideoffers'
-    id = db.Column(db.Integer, primary_key=True)
-    origin = db.Column(db.String(255), nullable=False)
-    destination = db.Column(db.String(255), nullable=False)
-    departure_time = db.Column(db.DateTime, default = db.func.current_timestamp())
-    vehicle_model = db.Column(db.String(255))
-    vehicle_capacty: db.Column(db.Integer)
-    route = db.Column(db.String(255))
-    "time_aded": None,
+# from v1 import db
+# from datetime import datetime
+#
+#
+# class RideOffers(db.Model):
+#     """ This class represents the ride table"""
+#
+#     __tablename__ = 'rideoffers'
+#     driver = db.Column(db.Integer, db.ForeignKey('profile.userid'), nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     origin = db.Column(db.String(255), nullable=False)
+#     destination = db.Column(db.String(255), nullable=False)
+#     departure_time = db.Column(db.DateTime, default=db.func.current_timestamp())
+#     vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
+#     route = db.Column(db.String(255))
+#     time_aded = db.Column(db.DateTime, default=datetime.utcnow)
+#
+#
+# class Vehicles(db.Model):
+#     __tablename__ = 'vehicles'
+#     owner = db.Column(db.Integer, db.ForeignKey('profile.userid'), nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     make = db.Column(db.String(255), nullable=False)
+#     capacity = db.Column(db.Integer, nullable=False)
+#     number_plate = db.Column(db.String(255), unique=True)
+#     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
