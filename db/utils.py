@@ -126,4 +126,16 @@ jwt_black_list_create = """CREATE TABLE jwt_blacklist
 );
 """
 
-# run queries to create tables
+responses_table_create = """
+CREATE TYPE RESPONSE AS ENUM ('Accept', 'Reject');
+CREATE TABLE public.request_responses
+(
+  id         SERIAL PRIMARY KEY      NOT NULL,
+  request_id INT                     NOT NULL,
+  response   RESPONSE                NOT NULL,
+  created    TIMESTAMP DEFAULT now() NOT NULL,
+  CONSTRAINT request_responses_trip_requests_id_fk FOREIGN KEY (request_id) REFERENCES trip_requests (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE UNIQUE INDEX request_responses_request_id_uindex
+  ON public.request_responses (request_id);
+"""
