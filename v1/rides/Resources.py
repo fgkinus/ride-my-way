@@ -266,9 +266,10 @@ class ListRideRequests(Resource):
         requests = query_db(DB[0], query, None)
         return jsonify(
             {
-                "requests" : requests
+                "requests": requests
             }
         )
+
 
 ########################################################################################################
 class RespondToRequest(Resource):
@@ -276,20 +277,34 @@ class RespondToRequest(Resource):
 
     @jwt_required
     def post(self, req_id, response):
-        req = [req for req in models.trip_requested if req['id'] == req_id]
-        if len(req) == 1:
-            response = dict(
-                id=len(models.request_respons) + 1,
-                req_id=req_id,
-                response=response
-            )
-            models.request_respons.append(response)
-            return jsonify({
-                'request': req[0]
-            }), 201
-        else:
-            return jsonify(
-                {
-                    'message': 'ride not found'
-                }, 200
-            )
+        query_add_response = """INSERT INTO request_responses(request_id, response) VALUES (%s,%s) returning *;"""
+        query_get_request = """SELECT
+                              tr.trip_id,
+                              t.driver
+                            FROM trip_requests tr
+                              INNER JOIN trips t ON tr.trip_id = t.id
+                            WHERE tr.id = 2"""
+        try:
+            request = query_db(DB[0], query_get_request, (req_id,))
+        except:
+            return {"error": "Could not fetch trip"}
+        # verify request exists
+        if len(request) != 1:
+            return {}, 204
+        # verify current user owns the trip and can accept request
+        if request[0]['driver'] != get_jwt_identity():
+            return {"message": "Unauthorised operation"}, 401
+        # Add response to DB
+        try:
+            added_response = query_db(DB[0], query_add_response, (req_id, response))
+            return {
+                'message': 'Response recorded',
+                'reponse': added_response
+            }
+        except:
+            return {
+                       "message": "Error adding response",
+                       "details": "Check that response is valid ie {} or {}".format('Reject', 'Accept'),
+                       "more-details": "If response has previously been made the operation will fail too"
+                   }, 400
+
