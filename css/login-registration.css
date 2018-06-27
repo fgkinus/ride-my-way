@@ -1,12 +1,13 @@
 /*.auth-body{*/
-    /*background-image: url("../img/Carpooling.jpg")  ;*/
-    /*background-repeat: no-repeat;*/
+/*background-image: url("../img/Carpooling.jpg")  ;*/
+/*background-repeat: no-repeat;*/
 /*}*/
 .icon {
     width: 200px;
     height: 200px;
     float: inside;
 }
+
 #container-login {
     background-color: #1D1F20;
     position: relative;
