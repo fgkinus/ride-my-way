@@ -4,7 +4,6 @@ from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Resource, reqparse, fields, marshal_with
 
-
 from v1 import connect_db
 from v1.rides import models
 from db.utils import query_db
@@ -72,19 +71,78 @@ class GetRideOffer(Resource):
                        'message': ' Error getting ride list'
                    }, 500
 
+    def delete(self, offer_id):
+        """
+        delete a ride offer if you are the owner
+        :param offer_id:
+        :return:
+        """
+        # first get the ride
+        query = """SELECT * FROM trips WHERE id=%s"""
+        param = (offer_id,)
+        try:
+            ride_offer = query_db(conn=DB[0], query=query, args=param)
+        except:
+            return {
+                       'message': ' Error getting ride '
+                   }, 500
+        # verify the logged in user is the owner of the ride
+        current_user = get_jwt_identity()
+        try:
+            if ride_offer[0]['driver'] != current_user:
+                return {
+                           'message': "You are not authorised to remove this ride"
+                       }, 401
+        except:
+            return {
+                       "error": "Could not verify ride ownership"
+                   }, 401
+        # delete the ride
+
 
 class AddRideOffer(Resource):
     @jwt_required
     def post(self):
         data = ride_parser.parse_args()
-        query = """INSERT INTO trips (origin,destination,driver,route,vehicle_model,vehicle_capacty,departure_time)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s);"""
+        # set the driver to current logged in user
+        data['driver'] = get_jwt_identity()
+        # verify user is a driver and can add rides
+        get_user = """SELECT * FROM user_accounts WHERE username=%s"""
+        user = query_db(conn=DB[0], query=get_user, args=(data['driver'],))
 
+        try:
+            if user[0]['user_type'] != 'driver':
+                return {
+                           "message": "Unauthorised operation",
+                           "Details": "A passenger is not permitted to add trips"
+                       }, 401
+        except:
+            return {
+                       "error": "could not get current user details"
+                   }, 401
+        # add the use Trip to database
+        query = """INSERT INTO trips (origin,destination,driver,route,vehicle_model,vehicle_capacty,departure_time)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id ;"""
+        # default departure time variable
         depart = datetime.datetime.now(datetime.timezone.utc)
         data['departure_time'] = depart
         param = (data['origin'], data['destination'], data['driver'], data['route'], data['vehicle_model'],
                  data['vehicle_capacity'], data['departure_time'])
-        query_db(DB[0], query, param)
+        # a try catch to handle errors arising from query execution
+        try:
+            id = query_db(DB[0], query, param)
+            # convert date time to serializable object
+            data['departure_time'] = depart.strftime('%c')
+            data['time_added'] = data['departure_time']
+            data['id'] = id[0]['id']
+            return {
+                       'message': "new trip added",
+                       'trip': data,
+                   }, 201
+        except:
+            return {
+                       'message': 'Error adding Ride',
+                   }, 500
 
 
 ########################################################################################################
