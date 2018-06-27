@@ -3,6 +3,7 @@ import time
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Resource, reqparse, fields, marshal_with
+from werkzeug.debug import console
 
 from v1 import connect_db
 from v1.rides import models
@@ -71,6 +72,7 @@ class GetRideOffer(Resource):
                        'message': ' Error getting ride list'
                    }, 500
 
+    @jwt_required
     def delete(self, offer_id):
         """
         delete a ride offer if you are the owner
@@ -83,21 +85,42 @@ class GetRideOffer(Resource):
         try:
             ride_offer = query_db(conn=DB[0], query=query, args=param)
         except:
+            return jsonify(
+                {
+                    'message': ' Error getting ride '
+                }
+            ), 500
+        # ensure a ride request exists
+        if len(ride_offer) != 1:
             return {
-                       'message': ' Error getting ride '
-                   }, 500
-        # verify the logged in user is the owner of the ride
+                       "message": "Trip offer not Found"
+                   }, 204
+        # # verify the logged in user is the owner of the ride
         current_user = get_jwt_identity()
         try:
             if ride_offer[0]['driver'] != current_user:
                 return {
-                           'message': "You are not authorised to remove this ride"
+                           'message': " sorry {} You are not authorised to remove this ride".format(current_user)
                        }, 401
         except:
             return {
-                       "error": "Could not verify ride ownership"
+                       "error": "Could not verify ride ownership",
+                       "driver": ride_offer[0]['driver'],
+                       'current_user': current_user
                    }, 401
-        # delete the ride
+        # delete the ride returning the deleted ride
+        query = """DELETE FROM trips WHERE id = %s RETURNING *"""
+        try:
+            ride = query_db(conn=DB[0], query=query, args=(offer_id,))
+            return {
+                       'message': 'Record successfully deleted',
+                   }, 200
+        except:
+            return jsonify(
+                {
+                    "message": "could not complete request"
+                }
+            ), 400
 
 
 class AddRideOffer(Resource):
@@ -154,19 +177,41 @@ class GetRideRequests(Resource):
         :param offer_id:
         :return request, ride:
         """
-        if type(offer_id) == int:
-            try:
-                ride_req = [r for r in models.trip_requested if r['trip_id'] == offer_id]
-                ride = [r for r in models.trip_offers if r['id'] == offer_id]
-
-                return {
-                           'requests': ride_req,
-                           'ride': ride,
-                       }, 200
-            except:
-                return {'message': "ride not found"}, 204
-        else:
-            return {'Invalid Input': "Input has to be an integer"}, 400
+        query = """SELECT * FROM trips WHERE id=%s"""
+        param = (offer_id,)
+        try:
+            ride_offer = query_db(conn=DB[0], query=query, args=param)
+        except:
+            return jsonify(
+                {
+                    'message': ' Error getting ride '
+                }
+            ), 500
+        # ensure a ride request exists
+        if len(ride_offer) != 1:
+            return {
+                       "message": "Trip offer not Found"
+                   }, 204
+        # now get ride requests for the offer
+        query = """SELECT
+                  tr.id,
+                  a.username,
+                  tr.created
+                FROM trip_requests tr
+                  INNER JOIN user_accounts a ON tr.requester = a.id
+                WHERE tr.trip_id = 1"""
+        try:
+            requests = query_db(DB[0], query, (offer_id,))
+            return jsonify(
+                {
+                    "requests": requests,
+                    'ride-details': ride_offer
+                }
+            )
+        except:
+            return {
+                       "message": "could not fetch ride requests"
+                   }, 500
 
 
 class AddRideRequest(Resource):
@@ -178,25 +223,31 @@ class AddRideRequest(Resource):
             username = get_jwt_identity()
         except:
             return {'error': 'session data not available'}
-        if username is None:
-            return {
-                'message': 'Please Login to recapture session data',
-                'details': 'The server instance seems to have restarted but'
-                           ' credentials from the previous session are being used. his is a bug that is as a result '
-                           'of non-persistent memory for now'
-            }
+        # queries
+        query_id = "SELECT id FROM user_accounts WHERE username= %s;"
+        query_offer = "SELECT * FROM trips WHERE id= %s;"
+        query_insert = """INSERT INTO trip_requests(trip_id, requester) VALUES (%s,%s) returning *;"""
+        # run queries
+        ride_offer = query_db(DB[0], query_offer, (offer_id,))
+        user_id = query_db(DB[0], query_id, (username,))
 
-        data = dict(
-            id=len(models.trip_requested) + 1,
-            trip_id=offer_id,
-            requester=username,
-            time=time.strftime("%c")
+        if len(ride_offer) != 1:
+            return {
+                       "message": "ride offer not found"
+                   }, 204
+
+        if len(user_id) == 1:
+            user_id = user_id[0]['id']
+
+        param = (offer_id, user_id)
+        request = query_db(DB[0], query_insert, param)
+
+        return jsonify(
+            {
+                "message": "Trip added",
+                "request": request
+            }
         )
-        models.trip_requested.append(data)  # append data to list
-        return {
-                   'message': 'Trip request created',
-                   'details': data
-               }, 201
 
 
 class ListRideRequests(Resource):
@@ -204,8 +255,20 @@ class ListRideRequests(Resource):
 
     @jwt_required
     def get(self):
-        return jsonify({'rides': models.trip_requested})
+        query = """SELECT
+                  tr.id,
+                  tr.trip_id,
+                  a.username,
+                  tr.created
+                FROM trip_requests tr
+                  INNER JOIN user_accounts a ON tr.requester = a.id """
 
+        requests = query_db(DB[0], query, None)
+        return jsonify(
+            {
+                "requests" : requests
+            }
+        )
 
 ########################################################################################################
 class RespondToRequest(Resource):

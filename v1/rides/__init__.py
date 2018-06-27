@@ -31,4 +31,4 @@ api.add_resource(Resources.AddRideOffer, '/rides')
 # Requests Views
 api.add_resource(Resources.GetRideRequests, '/rides/<int:offer_id>/requests')  # get ride requests by ride id
 api.add_resource(Resources.AddRideRequest, '/rides/<int:offer_id>/requests')  # add ride request by ride_request id
-api.add_resource(Resources.ListRideRequests, '/ride-requests')  # get ride request list
+api.add_resource(Resources.ListRideRequests, '/rides/ride-requests')  # get ride request list
