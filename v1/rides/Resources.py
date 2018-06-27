@@ -283,7 +283,7 @@ class RespondToRequest(Resource):
                               t.driver
                             FROM trip_requests tr
                               INNER JOIN trips t ON tr.trip_id = t.id
-                            WHERE tr.id = 2"""
+                            WHERE tr.id = %s"""
         try:
             request = query_db(DB[0], query_get_request, (req_id,))
         except:
@@ -297,10 +297,12 @@ class RespondToRequest(Resource):
         # Add response to DB
         try:
             added_response = query_db(DB[0], query_add_response, (req_id, response))
-            return {
-                'message': 'Response recorded',
-                'reponse': added_response
-            }
+            return jsonify(
+                {
+                    'message': 'Response recorded',
+                    'response': added_response
+                }
+            )
         except:
             return {
                        "message": "Error adding response",
@@ -308,3 +310,19 @@ class RespondToRequest(Resource):
                        "more-details": "If response has previously been made the operation will fail too"
                    }, 400
 
+
+class GetRequestResponse(Resource):
+    """ a resource to handle urls for request responses"""
+
+    @jwt_required
+    def get(self, req_id):
+        query = """SELECT * FROM request_responses WHERE request_id = %s"""
+        try:
+            response = query_db(DB[0], query, (req_id,))
+        except:
+            return {'error': "couldn't fetch response to request"}
+        # verify responses are present
+        if len(response) != 1:
+            return {}, 204
+        # return response to request
+        return jsonify({'response': response})
