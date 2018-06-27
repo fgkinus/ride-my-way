@@ -1,6 +1,4 @@
 import json
-import os
-import tempfile
 import pytest
 from flask_jwt_extended import create_access_token, JWTManager
 
@@ -90,6 +88,8 @@ def test_get_specific_ride_offer(test_client):
     assert response.status_code == 200
     assert 'ride-offer' in json_data
     assert json_data['ride-offer']['id'] == 1
+
+
 def test_get_ride_request_for_specific_ride_offer(test_client):
     """
     test api endpoint ro return specific ride offer and a list of offers
@@ -107,6 +107,8 @@ def test_get_ride_request_for_specific_ride_offer(test_client):
     assert 'ride' in json_data
     assert json_data['ride'][0]['id'] == 1
     assert len(json_data['requests']) == 2
+
+
 def test_add_ride_request_for_specific_ride_offer(test_client):
     """
     test api endpoint to add ride request for currently authenticated user
@@ -124,4 +126,5 @@ def test_add_ride_request_for_specific_ride_offer(test_client):
     assert 'details' in json_data
     assert json_data['details']['requester'] == 'testuser'
     assert 'time' in json_data['details']
+
 
