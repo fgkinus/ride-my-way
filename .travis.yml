@@ -11,7 +11,7 @@ deploy:
   provider: heroku
   api_key:
     secure: "637f46b6-d9d3-4c0d-a436-a7c552018a89"
-  app: Ride-my-Way
+  app: ride-my-way-v1
   on:
     branch: api-v1-restructured
 script: pytest
