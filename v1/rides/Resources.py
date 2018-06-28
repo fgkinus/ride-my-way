@@ -1,6 +1,6 @@
 import datetime
 import time
-from flask import jsonify
+from flask import jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Resource, reqparse, fields, marshal_with
 from werkzeug.debug import console
@@ -242,11 +242,13 @@ class AddRideRequest(Resource):
         param = (offer_id, user_id)
         request = query_db(DB[0], query_insert, param)
 
-        return jsonify(
-            {
-                "message": "Trip added",
-                "request": request
-            }
+        return make_response(
+            jsonify(
+                {
+                    "message": "Trip added",
+                    "request": request
+                }
+            ), 201
         )
 
 
