@@ -1,3 +1,5 @@
+import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import RealDictCursor
 
 
@@ -22,120 +24,37 @@ def query_db(conn, query, args):
             return result
 
 
-# def check_db_exists(db_name='rmw'):
-#     """Verify that db exists"""
-#     try:
-#         conn = connect('pg_catalog.pg_database', 'postgres', password='')
-#         cur = conn.cursor()
-#         result = cur.execute("""select exists(
-#                      SELECT {0} FROM pg_catalog.pg_database WHERE lower({0}) = lower({0})
-#                     );""".format(db_name))
-#         if result is True:
-#             return True
-#         else:
-#             return False
-#
-#     except Exception:
-#         print("Could not connect to db")
-#     return False
+def add_table(conn, query):
+    """
+    a custom function to run any valid SQL query provided a connection object is provided.
+    If a transaction fails , its rolled back and cursors are not blocked
+    :param conn:
+    :param query:
+    :return:
+    """
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(query)
 
 
-# queries
-user_account_create = """CREATE TABLE user_accounts
-(
-  id          SERIAL NOT NULL
-    CONSTRAINT user_accounts_pkey
-    PRIMARY KEY,
-  first_name  VARCHAR NOT NULL,
-  second_name VARCHAR NOT NULL,
-  username    VARCHAR NOT NULL,
-  email       VARCHAR NOT NULL,
-  password    VARCHAR NOT NULL,
-  user_type   VARCHAR NOT NULL
-);
-CREATE UNIQUE INDEX user_accounts_username_uindex
-  ON user_accounts (username);
+def create_tables(conn, queries):
+    for query in queries:
+        add_table(conn=conn, query=query)
 
-CREATE UNIQUE INDEX user_accounts_email_uindex
-  ON user_accounts (email);
-                """
-trip_offers_create = """CREATE TABLE trips
-(
-  id              SERIAL NOT NULL
-    CONSTRAINT id
-    PRIMARY KEY,
-  origin          TEXT    NOT NULL,
-  destination     TEXT,
-  departure_time  TIMESTAMP WITH TIME ZONE,
-  vehicle_model   TEXT,
-  vehicle_capacty INTEGER,
-  route           TEXT,
-  time_aded       TIME WITH TIME ZONE,
-  driver          TEXT
-    CONSTRAINT trips_user_accounts_username_fk
-    REFERENCES user_accounts (username)
-    ON UPDATE CASCADE ON DELETE CASCADE
-);"""
-trip_requests_create = """CREATE TABLE trip_requests
-(
-  id        SERIAL NOT NULL
-    CONSTRAINT trip_requests_pkey
-    PRIMARY KEY,
-  trip_id   INTEGER NOT NULL
-    CONSTRAINT trip_requests_trips_id_fk
-    REFERENCES trips
-    ON UPDATE CASCADE ON DELETE CASCADE,
-  requester INTEGER NOT NULL
-    CONSTRAINT trip_requests_user_accounts_id_fk
-    REFERENCES user_accounts
-    ON UPDATE CASCADE ON DELETE CASCADE
-);"""
-rides_given_create = """CREATE TABLE rides_given
-(
-  id      SERIAL NOT NULL
-    CONSTRAINT rides_given_pkey
-    PRIMARY KEY,
-  ride_id INTEGER
-    CONSTRAINT rides_given_trips_id_fk
-    REFERENCES trips
-    ON UPDATE CASCADE ON DELETE CASCADE
-);"""
-notifications_create = """CREATE TABLE notifications
-(
-  id       SERIAL NOT NULL
-    CONSTRAINT notifications_id_pk
-    PRIMARY KEY,
-  trip_id INTEGER
-    CONSTRAINT notifications_trips_id_fk
-    REFERENCES trips
-    ON UPDATE CASCADE ON DELETE CASCADE,
-  action  TEXT,
-  time    TIMESTAMP
-);
 
-CREATE UNIQUE INDEX notifications_id_uindex
-  ON notifications (id);
-"""
-jwt_black_list_create = """CREATE TABLE jwt_blacklist
-(
-  id   SERIAL       NOT NULL
-    CONSTRAINT jwt_blacklist_pkey
-    PRIMARY KEY,
-  jwt  VARCHAR(255) NOT NULL,
-  time TIMESTAMP DEFAULT now()
-);
-"""
+def check_db_exists(conn, db_name='rmw'):
+    """Verify that db exists"""
+    query = """select exists(
+             SELECT datname FROM pg_catalog.pg_database WHERE datname=%s
+            );
+            """
+    return query_db(conn, query, (db_name,))
 
-responses_table_create = """
-CREATE TYPE RESPONSE AS ENUM ('Accept', 'Reject');
-CREATE TABLE public.request_responses
-(
-  id         SERIAL PRIMARY KEY      NOT NULL,
-  request_id INT                     NOT NULL,
-  response   RESPONSE                NOT NULL,
-  created    TIMESTAMP DEFAULT now() NOT NULL,
-  CONSTRAINT request_responses_trip_requests_id_fk FOREIGN KEY (request_id) REFERENCES trip_requests (id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-CREATE UNIQUE INDEX request_responses_request_id_uindex
-  ON public.request_responses (request_id);
-"""
+
+def create_db(conn, dbname):
+    query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(query)
+    conn.close()

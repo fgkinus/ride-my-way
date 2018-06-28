@@ -1,17 +1,31 @@
+
 from flask import Flask
 import os
 from config import APP_CONFIG, basedir
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
+from db.queries import tables_list
+from db.utils import check_db_exists, create_db, create_tables
 
-def connect_db(db_name, user, password):
+def connect_db(db_name=os.getenv('DATABASE_NAME'), user=os.getenv('DATABASE_USER'),
+               password=os.getenv('DATABASE_PASSWORD')):
     try:
         conn = psycopg2.connect(database=db_name, user=user, password=password)
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         return conn, cursor
     except Exception:
         raise psycopg2.DatabaseError
+
+
+def init_db(db_name):
+    conn = psycopg2.connect(database='postgres', user='postgres', password='')
+    if check_db_exists(conn=conn, db_name=db_name)[0]['exists']:
+        pass
+    else:
+        create_db(conn, db_name)
+        conn = connect_db(db_name=db_name, user='postgres', password=os.getenv('DATABASE_PASSWORD'))
+        create_tables(conn[0], tables_list)
 
 
 def register_blueprints(app):

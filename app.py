@@ -2,7 +2,16 @@ from flask_jwt_extended import JWTManager
 from flask_restplus import Api
 import os
 
-from v1 import create_app, register_blueprints, connect_db
+
+from v1 import create_app, register_blueprints, init_db
+
+
+# initialize database
+os.environ['DATABASE_USER'] = 'postgres'
+os.environ['DATABASE_PASSWORD'] = ''
+os.environ['DATABASE_NAME'] = 'rmw'
+init_db(db_name=os.getenv('DATABASE_NAME'))
+
 
 config_name = os.getenv('APP_SETTINGS')
 app = create_app(config_name)  # create the Flask Instance
@@ -23,4 +32,5 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 jwt = JWTManager(app)
 
 if __name__ == '__main__':
-    app.run()
+    print(os.getenv('DATABASE_PASSWORD'))
+    # app.run()

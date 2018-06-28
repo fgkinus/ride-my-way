@@ -5,13 +5,12 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Resource, reqparse, fields, marshal_with
 from werkzeug.debug import console
 
-from v1 import connect_db
-from v1.rides import models
+from v1 import connect_db, users
 from db.utils import query_db
 
 # def database connection
 # database connection
-DB = connect_db('rmw', 'postgres', '')
+DB = connect_db()
 cursor = DB[1]
 
 # define  request parsers and args
@@ -37,6 +36,7 @@ request_parser.add_argument('time_added', help='This field cannot be blank', req
 class ListRideOffers(Resource):
     """A view to list all ride offers and individual rides"""
 
+    @users.api.doc(params={'none': 'get request with no parameters'})
     @jwt_required
     def get(self):
         query = """SELECT * FROM trips"""
@@ -56,6 +56,7 @@ class ListRideOffers(Resource):
 class GetRideOffer(Resource):
     """Get a specific ride offer by ride id"""
 
+    @users.api.doc(params={'id': 'The ride Id'})
     @jwt_required
     def get(self, offer_id):
         query = """SELECT * FROM trips WHERE id=%s"""
@@ -73,6 +74,7 @@ class GetRideOffer(Resource):
                    }, 500
 
     @jwt_required
+    @users.api.doc(params={'id': 'The ride offer id to delete'})
     def delete(self, offer_id):
         """
         delete a ride offer if you are the owner
@@ -125,6 +127,7 @@ class GetRideOffer(Resource):
 
 class AddRideOffer(Resource):
     @jwt_required
+    @users.api.expect(ride_parser)
     def post(self):
         data = ride_parser.parse_args()
         # set the driver to current logged in user

@@ -10,7 +10,7 @@ from v1.users import models
 from db.utils import query_db
 
 # database connection
-DB = connect_db('rmw', 'postgres', '')
+DB = connect_db()
 cursor = DB[1]
 
 # data parsers
