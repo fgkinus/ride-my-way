@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL - rmw@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.9">
+    <root id="1">
+      <ServerVersion>9.6.6</ServerVersion>
+    </root>
+    <database id="2" parent="1" name="flask_api">
+      <ObjectId>33090</ObjectId>
+    </database>
+    <database id="3" parent="1" name="flask_learn">
+      <ObjectId>33089</ObjectId>
+    </database>
+    <database id="4" parent="1" name="gavel3">
+      <ObjectId>16385</ObjectId>
+    </database>
+    <database id="5" parent="1" name="postgres">
+      <ObjectId>12401</ObjectId>
+      <Comment>default administrative connection database</Comment>
+    </database>
+    <database id="6" parent="1" name="rmw">
+      <ObjectId>33035</ObjectId>
+      <IntrospectionStateNumber>106</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="7" parent="1" name="testing_db">
+      <ObjectId>33088</ObjectId>
+    </database>
+    <role id="8" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="9" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <Replication>1</Replication>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <BypassRls>1</BypassRls>
+    </role>
+    <role id="10" parent="1" name="tash">
+      <ObjectId>16384</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CanLogin>1</CanLogin>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <ValidUntil>infinity</ValidUntil>
+    </role>
+    <schema id="11" parent="6" name="information_schema">
+      <ObjectId>12113</ObjectId>
+    </schema>
+    <schema id="12" parent="6" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+      <Comment>system catalog schema</Comment>
+    </schema>
+    <schema id="13" parent="6" name="pg_temp_1">
+      <ObjectId>11848</ObjectId>
+    </schema>
+    <schema id="14" parent="6" name="pg_toast">
+      <ObjectId>99</ObjectId>
+      <Comment>reserved schema for TOAST tables</Comment>
+    </schema>
+    <schema id="15" parent="6" name="pg_toast_temp_1">
+      <ObjectId>11849</ObjectId>
+    </schema>
+    <schema id="16" parent="6" name="public">
+      <ObjectId>2200</ObjectId>
+      <Comment>standard public schema</Comment>
+      <IntrospectionTimestamp>2018-06-26.23:17:42.096</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <access-method id="17" parent="6" name="btree">
+      <ObjectId>403</ObjectId>
+      <Comment>b-tree index access method</Comment>
+      <Handler>pg_catalog.bthandler</Handler>
+      <HandlerId>330</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="18" parent="6" name="hash">
+      <ObjectId>405</ObjectId>
+      <Comment>hash index access method</Comment>
+      <Handler>pg_catalog.hashhandler</Handler>
+      <HandlerId>331</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="19" parent="6" name="gist">
+      <ObjectId>783</ObjectId>
+      <Comment>GiST index access method</Comment>
+      <Handler>pg_catalog.gisthandler</Handler>
+      <HandlerId>332</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="20" parent="6" name="gin">
+      <ObjectId>2742</ObjectId>
+      <Comment>GIN index access method</Comment>
+      <Handler>pg_catalog.ginhandler</Handler>
+      <HandlerId>333</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="21" parent="6" name="spgist">
+      <ObjectId>4000</ObjectId>
+      <Comment>SP-GiST index access method</Comment>
+      <Handler>pg_catalog.spghandler</Handler>
+      <HandlerId>334</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="22" parent="6" name="brin">
+      <ObjectId>3580</ObjectId>
+      <Comment>block range index (BRIN) access method</Comment>
+      <Handler>pg_catalog.brinhandler</Handler>
+      <HandlerId>335</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <sequence id="23" parent="16" name="jwt_blacklist_id_seq">
+      <ObjectId>49478</ObjectId>
+      <StateNumber>1061</StateNumber>
+      <BelongsToColumn>1</BelongsToColumn>
+    </sequence>
+    <sequence id="24" parent="16" name="user_accounts_id_seq">
+      <ObjectId>49475</ObjectId>
+      <StateNumber>1042</StateNumber>
+    </sequence>
+    <table id="25" parent="16" name="jwt_blacklist">
+      <ObjectId>49480</ObjectId>
+      <Comment>A table to hold all blacklisted tokens</Comment>
+      <StateNumber>1061</StateNumber>
+    </table>
+    <table id="26" parent="16" name="notifications">
+      <ObjectId>33070</ObjectId>
+      <StateNumber>1021</StateNumber>
+    </table>
+    <table id="27" parent="16" name="rides taken">
+      <ObjectId>33078</ObjectId>
+      <StateNumber>1033</StateNumber>
+    </table>
+    <table id="28" parent="16" name="rides_given">
+      <ObjectId>33081</ObjectId>
+      <StateNumber>1017</StateNumber>
+    </table>
+    <table id="29" parent="16" name="trip_requests">
+      <ObjectId>33055</ObjectId>
+      <StateNumber>1029</StateNumber>
+    </table>
+    <table id="30" parent="16" name="trips">
+      <ObjectId>33047</ObjectId>
+      <StateNumber>1032</StateNumber>
+    </table>
+    <table id="31" parent="16" name="user_accounts">
+      <ObjectId>33039</ObjectId>
+      <StateNumber>1033</StateNumber>
+    </table>
+    <column id="32" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1061</StateNumber>
+      <DefaultExpression>nextval(&apos;jwt_blacklist_id_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+      <SequenceName>jwt_blacklist_id_seq</SequenceName>
+    </column>
+    <column id="33" parent="25" name="jwt">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1061</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="34" parent="25" name="time">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>1061</StateNumber>
+      <DefaultExpression>now()</DefaultExpression>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="35" parent="25" name="jwt_blacklist_pkey">
+      <ObjectId>49485</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="36" parent="25" name="jwt_blacklist_pkey">
+      <ObjectId>49486</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>jwt_blacklist_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="37" parent="26" name="id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>924</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="38" parent="26" name="trip_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>923</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="39" parent="26" name="action">
+      <Position>4</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>925</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="40" parent="26" name="time">
+      <Position>5</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>945</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="41" parent="26" name="notifications_id_pk">
+      <ObjectId>41321</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="42" parent="26" name="notifications_id_uindex">
+      <ObjectId>41315</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="43" parent="26" name="notifications_id_pk">
+      <ObjectId>41322</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>notifications_id_pk</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="44" parent="26" name="notifications_trips_id_fk">
+      <ObjectId>41316</ObjectId>
+      <ColNames>trip_id</ColNames>
+      <RefTableId>33047</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>trips</RefTableName>
+      <RefKeyName>id</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="45" parent="27" name="ride_id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>947</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="46" parent="27" name="id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>949</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="47" parent="27" name="passenger_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>947</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="48" parent="27" name="rides taken_pkey">
+      <ObjectId>33084</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="27" name="rides taken_pkey">
+      <ObjectId>33085</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>rides taken_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="50" parent="27" name="rides taken_trips_id_fk">
+      <ObjectId>41351</ObjectId>
+      <ColNames>ride_id</ColNames>
+      <RefTableId>33047</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>trips</RefTableName>
+      <RefKeyName>id</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="51" parent="27" name="rides taken_user_accounts_id_fk">
+      <ObjectId>41356</ObjectId>
+      <ColNames>passenger_id</ColNames>
+      <RefTableId>33039</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>user_accounts</RefTableName>
+      <RefKeyName>user_accounts_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="52" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>972</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="53" parent="28" name="ride_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>948</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="54" parent="28" name="rides_given_pkey">
+      <ObjectId>33086</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="55" parent="28" name="rides_given_pkey">
+      <ObjectId>33087</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>rides_given_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="56" parent="28" name="rides_given_trips_id_fk">
+      <ObjectId>41310</ObjectId>
+      <ColNames>ride_id</ColNames>
+      <RefTableId>33047</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>trips</RefTableName>
+      <RefKeyName>id</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="57" parent="29" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="58" parent="29" name="trip_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1014</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="59" parent="29" name="requester">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1013</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="60" parent="29" name="trip_requests_pkey">
+      <ObjectId>33061</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="61" parent="29" name="trip_requests_pkey">
+      <ObjectId>33062</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>trip_requests_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="62" parent="29" name="trip_requests_trips_id_fk">
+      <ObjectId>41331</ObjectId>
+      <ColNames>trip_id</ColNames>
+      <RefTableId>33047</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>trips</RefTableName>
+      <RefKeyName>id</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="63" parent="29" name="trip_requests_user_accounts_id_fk">
+      <ObjectId>41341</ObjectId>
+      <ColNames>requester</ColNames>
+      <RefTableId>33039</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>user_accounts</RefTableName>
+      <RefKeyName>user_accounts_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="64" parent="30" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>845</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="65" parent="30" name="origin">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>878</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="66" parent="30" name="destination">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="67" parent="30" name="departure_time">
+      <Position>4</Position>
+      <DataType>timestamp with time zone|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="68" parent="30" name="vehicle_model">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="69" parent="30" name="vehicle_capacty">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="70" parent="30" name="route">
+      <Position>7</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="71" parent="30" name="time_aded">
+      <Position>8</Position>
+      <DataType>time with time zone|0s</DataType>
+      <StateNumber>845</StateNumber>
+      <TypeId>1266</TypeId>
+    </column>
+    <column id="72" parent="30" name="driver">
+      <Position>9</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>848</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="73" parent="30" name="id">
+      <ObjectId>33053</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="74" parent="30" name="id">
+      <ObjectId>33054</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>id</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="75" parent="30" name="trips_user_accounts_username_fk">
+      <ObjectId>41300</ObjectId>
+      <ColNames>driver</ColNames>
+      <RefTableId>33039</RefTableId>
+      <RefColPositions>4</RefColPositions>
+      <RefTableName>user_accounts</RefTableName>
+      <RefColNames>username</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="76" parent="31" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1043</StateNumber>
+      <DefaultExpression>nextval(&apos;user_accounts_id_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="77" parent="31" name="first_name">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1001</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="78" parent="31" name="second_name">
+      <Position>3</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1002</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="79" parent="31" name="username">
+      <Position>4</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>997</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="80" parent="31" name="email">
+      <Position>5</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>999</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="81" parent="31" name="password">
+      <Position>6</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1003</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="82" parent="31" name="user_type">
+      <Position>7</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1004</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="83" parent="31" name="user_accounts_pkey">
+      <ObjectId>33045</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="84" parent="31" name="user_accounts_username_uindex">
+      <ObjectId>41288</ObjectId>
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="85" parent="31" name="user_accounts_email_uindex">
+      <ObjectId>41289</ObjectId>
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="86" parent="31" name="user_accounts_pkey">
+      <ObjectId>33046</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>user_accounts_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

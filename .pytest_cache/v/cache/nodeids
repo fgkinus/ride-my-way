@@ -1,0 +1,3 @@
+[
+  "tests/test_rides.py::test_get_all_ride_requests"
+]
