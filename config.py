@@ -10,17 +10,23 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET = os.getenv('SECRET')
     TESTING = False
+    DATABASE_NAME = None
+    DATABASE_USER = 'postgres'
+    DATABASE_PASSWORD = ''
+
 
 class DevelopmentConfig(Config):
     """Development configuration"""
 
     DEBUG = True
+    DATABASE_NAME = 'rmw'
 
 
 class TestingConfig(Config):
     """Configurations for Testing"""
 
     TESTING = True
+    DATABASE_NAME = 'testing'
 
 
 class StagingConfig(Config):

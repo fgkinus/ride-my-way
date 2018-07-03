@@ -1,7 +1,3 @@
 [
-  "test_rides.py::test_get_all_ride_requests",
-  "test_rides.py::test_add_ride_offer",
-  "test_rides.py::test_get_specific_ride_offer",
-  "test_rides.py::test_get_ride_request_for_specific_ride_offer",
-  "test_rides.py::test_add_ride_request_for_specific_ride_offer"
+  "tests/test_rides.py::test_get_all_ride_requests"
 ]
