@@ -1,17 +1,9 @@
+from __future__ import absolute_import
 from flask_jwt_extended import JWTManager
 from flask_restplus import Api
 import os
 
-
-from v1 import create_app, register_blueprints, init_db
-
-
-# initialize database
-os.environ['DATABASE_USER'] = 'postgres'
-os.environ['DATABASE_PASSWORD'] = ''
-os.environ['DATABASE_NAME'] = 'rmw'
-init_db(db_name=os.getenv('DATABASE_NAME'))
-
+from v1 import create_app, register_blueprints, init_db, connect_db
 
 config_name = os.getenv('APP_SETTINGS')
 app = create_app(config_name)  # create the Flask Instance
@@ -21,6 +13,13 @@ api = Api(
     title='RideMyWay API',
     description="The API to v1-My-Way ride sharing platform. To see sample login credentials navigate to '/api/vi/auth'",
 )
+
+init_db(db_name=app.config['DATABASE_NAME'])
+DB = connect_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
+                user=app.config['DATABASE_USER'])
+
+app.config['DATABASE_CONN'] = DB
+
 # register blueprints
 register_blueprints(app=app)
 
@@ -33,4 +32,4 @@ jwt = JWTManager(app)
 
 if __name__ == '__main__':
     print(os.getenv('DATABASE_PASSWORD'))
-    # app.run()
+    app.run()
