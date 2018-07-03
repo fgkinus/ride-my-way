@@ -1,4 +1,4 @@
-
+from __future__ import absolute_import
 from flask import Flask
 import os
 from config import APP_CONFIG, basedir
@@ -8,8 +8,8 @@ from psycopg2.extras import RealDictCursor
 from db.queries import tables_list
 from db.utils import check_db_exists, create_db, create_tables
 
-def connect_db(db_name=os.getenv('DATABASE_NAME'), user=os.getenv('DATABASE_USER'),
-               password=os.getenv('DATABASE_PASSWORD')):
+
+def connect_db(db_name, user, password):
     try:
         conn = psycopg2.connect(database=db_name, user=user, password=password)
         cursor = conn.cursor(cursor_factory=RealDictCursor)
@@ -30,9 +30,9 @@ def init_db(db_name):
 
 def register_blueprints(app):
     """Register the different blueprints with the application"""
-    from .users import users_blueprint
-    from .rides import rides_blueprint
 
+    from v1.users import users_blueprint
+    from .rides import rides_blueprint
     app.register_blueprint(users_blueprint, url_prefix='/api/v1/auth')
     app.register_blueprint(rides_blueprint, url_prefix='/api/v1')
 

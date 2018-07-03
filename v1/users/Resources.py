@@ -5,13 +5,11 @@ from flask_jwt_extended import jwt_required, create_access_token, create_refresh
     get_jwt_identity, get_raw_jwt
 from flask_restplus import reqparse, Resource, fields, marshal_with
 
-from v1 import connect_db
-from v1.users import models
+import v1
 from db.utils import query_db
-
+import app
 # database connection
-DB = connect_db()
-cursor = DB[1]
+DB = app.app.config['DATABASE_CONN']
 
 # data parsers
 login_parser = reqparse.RequestParser()

@@ -5,8 +5,12 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-# command to run tests
-script: pytest
+# command to  setup db
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database rmw;' -U postgres
+
 deploy:
   provider: heroku
   api_key:

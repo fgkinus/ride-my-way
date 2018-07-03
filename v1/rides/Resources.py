@@ -7,11 +7,11 @@ from werkzeug.debug import console
 
 from v1 import connect_db, users
 from db.utils import query_db
+import app
 
 # def database connection
 # database connection
-DB = connect_db()
-cursor = DB[1]
+DB = app.app.config['DATABASE_CONN']
 
 # define  request parsers and args
 
