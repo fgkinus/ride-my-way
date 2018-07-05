@@ -32,13 +32,13 @@ def init_db(db_name, username='postgres', password=''):
         create_tables(conn[0], tables_list)
 
 
-def register_blueprints(app):
-    """Register the different blueprints with the application"""
-
-    from app.users import users_blueprint
-    from app.rides import rides_blueprint
-    app.register_blueprint(users_blueprint, url_prefix='/api/v1/auth')
-    app.register_blueprint(rides_blueprint, url_prefix='/api/v1')
+# def register_blueprints(app):
+#     """Register the different blueprints with the application"""
+#
+#     from app.users import users_blueprint
+#     from app.rides import rides_blueprint
+#     app.register_blueprint(users_blueprint, url_prefix='/api/v1/auth')
+#     app.register_blueprint(rides_blueprint, url_prefix='/api/v1')
 
 
 def register_namespace(root):
