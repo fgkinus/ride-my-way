@@ -49,8 +49,8 @@ def register_namespace(root):
     """
     from app.rides.Resources import api as rides_ns
     from app.users.Resources import api as users_ns
-    root.add_namespace(rides_ns, path='/api/v1')
-    root.add_namespace(users_ns, path='/api/v1/auth')
+    root.add_namespace(rides_ns, path='/api/v2')
+    root.add_namespace(users_ns, path='/api/v2/auth')
 
 
 def create_app(config_name):

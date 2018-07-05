@@ -9,7 +9,7 @@ config_name = os.getenv('APP_SETTINGS')
 app = create_app(config_name)  # create the Flask Instance
 # api instance is instantiated
 api = Api(
-    app, version='1.0',
+    app, version='2.0',
     title='RideMyWay API',
     description="The API to v1-My-Way ride sharing platform.",
 )
