@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Francis Gitau">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style2.css">
+    <link rel="stylesheet" type="text/css" href="../css/nav-bar.css">
+    <link rel="stylesheet" type="text/css" href="../css/login-registration.css">
+    <link rel="stylesheet" type="text/css" href="../css/w3.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <script type="application/javascript" src="../js/js.js"></script>
+    <title>Ride My Way-Home :Driver</title>
+</head>
+<body>
+<div>
+    <!--modal-->
+    <div  >
+        <iframe id="add_trip" class="modal" src="new_ride.html" ></iframe>
+    </div>
+    <nav id="navbar" class="sticky">
+        <div id="menu" class="menu">
+            <a class="sitename" href="#"> Ride My Way</a>
+            <button class="w3-button w3-teal w3-xlarge w3-right" onclick="w3_open()">☰</button>
+        </div>
+        <!-- Sidebar menu-->
+        <div class="w3-sidebar w3-bar-block" style="width:200px;right:0;" id="mySidebar">
+            <button class="w3-bar-item w3-button " onclick="w3_close()">Close &times;</button>
+            <a href="profile2.html" class="w3-bar-item w3-button">Profile</a>
+            <a href="#" class="w3-bar-item w3-button">support</a>
+            <a id="add_ride_btn" onclick="open_modal()" class="w3-bar-item w3-button">add ride</a>
+            <a href="landing.html" class="w3-bar-item w3-button">sign out</a>
+        </div>
+    </nav>
+
+    <div id="main" class="wrapper">
+        <!--left sidebar-->
+        <div id="sidebar" class="box sidebar">
+            <h3>All Trip Offers</h3>
+            <div class="wrapper2" >
+                <ul id="trip-offers">
+
+                </ul>
+            </div>
+        </div>
+
+        <!--right sidebar-->
+        <div class="box sidebar2">
+            <h3>Trip Requests</h3>
+            <div class="wrapper2" >
+                <ul id="trip-requests">
+
+                </ul>
+            </div>
+        </div>
+
+        <!--center sidebar-->
+        <div class="box content">
+            <h3>my Trip Offers</h3>
+            <div class="wrapper2" >
+                <ul id="my-trip-offers">
+
+                </ul>
+            </div>
+        </div>
+
+        <!--footer section-->
+        <div class="footer">
+            <iframe id="container-footer" src="footer.html" frameborder="0" wmode="0"></iframe>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <template id="trip-offer">
+        <li>
+            <input type="checkbox" id="list-item-1">
+            <label for="list-item-1" class="first">
+                <span><img class="thumbnail" src="../img/driver.png"></span>
+                <span class="username">username </span> added a new trip to
+                <span class="destination"> destination</span>
+            </label>
+            <ul>
+                <li hidden>Trip id :<span class="trip-id"></span></li>
+                <li>Time added :<span class="time-added"></span></li>
+                <li>Destination :<span class="destination"></span></li>
+                <li>From        :<span class="origin"></span></li>
+                <li>Departure   :<span class="departure-time"></span></li>
+                <li>route       :<span class="route"></span></li>
+                <li>vehicle     :<span class="vehicle"></span></li>
+                <li>vehicle-capacity     :<span class="vehicle-capacity"></span></li>
+                <li>
+                    <button class="myButton material-icons" title="request ride">check</button>
+                    <button class="myButton material-icons" title="share ride">share</button>
+                </li>
+            </ul>
+        </li>
+    </template>
+    <template id="trip-request">
+        <li>
+            <input type="checkbox" id="ride-request">
+            <label for="ride-request" class="first">
+                <span><img class="thumbnail" src="../img/passenger.png"></span>
+                <span class="username">username </span> requested to join your trip to
+                <span class="destination"> destination</span>
+            </label>
+            <ul>
+                <li hidden>Trip id :<span class="trip-id"></span></li>
+                <li>Time added :<span class="time-added"></span></li>
+                <li>Destination :<span class="destination"></span></li>
+                <li>From        :<span class="origin"></span></li>
+                <li>Departure   :<span class="departure-time"></span></li>
+                <li>route       :<span class="route"></span></li>
+                <li>vehicle     :<span class="vehicle"></span></li>
+                <li>vehicle-capacity     :<span class="vehicle-capacity"></span></li>
+                <button class="myButton material-icons" title="approve ride request">check</button>
+                <button class="myButton material-icons" title="reject  ride request">cancel</button>
+            </ul>
+        </li>
+    </template>
+    <script type="application/javascript" src="../js/trip_offers.js"></script>
+    <script type="application/javascript" src="../js/js.js"></script>
+    <script>w3_close();</script>
+</footer>
+</body>
+</html>
