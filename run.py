@@ -3,7 +3,8 @@ from flask_jwt_extended import JWTManager
 from flask_restplus import Api
 import os
 
-from app.utils import create_app, init_db, connect_db, register_namespace
+from app.utils import create_app, register_namespace
+from db.utils import Database
 
 config_name = os.getenv('APP_SETTINGS')
 app = create_app(config_name)  # create the Flask Instance
@@ -13,14 +14,17 @@ api = Api(
     title='RideMyWay API',
     description="The API to v1-My-Way ride sharing platform.",
 )
-# database initialisation
-init_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
-        username=app.config['DATABASE_USER'])
-# connect to database
-DB = connect_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
-                user=app.config['DATABASE_USER'])
+# # database initialisation
+# init_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
+#         username=app.config['DATABASE_USER'])
+# # connect to database
+# DB = connect_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
+#                 user=app.config['DATABASE_USER'])
 
-app.config['DATABASE_CONN'] = DB
+Database = Database(username=app.config['DATABASE_USER'], password=app.config['DATABASE_PASSWORD'],
+                    db_name=app.config['DATABASE_NAME']).init_db()
+
+app.config['DATABASE_CONN'] = Database
 
 # register blueprints
 # register_blueprints(app=app)
