@@ -80,6 +80,12 @@ class Database(object):
         except Exception:
             raise psycopg2.DatabaseError("could not connect to database")
 
+    def get_connection(self):
+        if isinstance(self.conn, psycopg2.extensions.connection):
+            return self.conn
+        else:
+            raise ConnectionError("connection not established.please initialise the DB first")
+
     def create_db(self, dbname, username, password):
         query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
         conn = self.connect_db('postgres', username, password)
@@ -91,8 +97,7 @@ class Database(object):
         for query in create_queries:
             self.query_db_no_result(conn=conn, query=query, args=())
 
-    @staticmethod
-    def query_db(conn, query, args):
+    def query_db(self, query, args):
         """
         a custom function to run any valid SQL query provided a connection object is provided.
         If a transaction fails , its rolled back and cursors are not blocked
@@ -101,22 +106,22 @@ class Database(object):
         :param args:
         :return result:
         """
+        conn = self.get_connection()
         with conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute(query, args)
                 result = cur.fetchall()
                 return result
 
-    @staticmethod
-    def query_db_no_result(conn, query, args):
+    def query_db_no_result(self, query, args):
         """
         a custom function to run any valid SQL query provided a connection object is provided.
         If a transaction fails , its rolled back and cursors are not blocked
-        :param conn:
         :param query:
         :param args:
         :return :
         """
+        conn = self.get_connection()
         with conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute(query, args)
@@ -134,12 +139,6 @@ class Database(object):
         conn.close()
         return conn
 
-    def get_connection(self):
-        if isinstance(self.conn, psycopg2.extensions.connection):
-            return self.conn
-        else:
-            raise ConnectionError("connection not established.please initialise the DB first")
-
     def init_db(self):
         """initialise database"""
         # create db connecton to root db
@@ -155,5 +154,3 @@ class Database(object):
             self.conn = self.connect_db(db_name=self.db_name, username=self.password, password=self.password)
             self.create_tables(conn=self.conn)
             return self
-
-
