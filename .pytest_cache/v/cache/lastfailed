@@ -1,4 +1,0 @@
-{
-  "tests/test_rides.py::test_get_all_ride_requests": true,
-  "v1/tests/test_rides.py::test_get_all_ride_requests": true
-}
