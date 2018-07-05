@@ -1,18 +1,13 @@
 from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, jwt_refresh_token_required, \
     get_jwt_identity, get_raw_jwt
-from flask_jwt_extended.exceptions import NoAuthorizationError
+from flask_jwt_extended.exceptions import NoAuthorizationError, WrongTokenError
 from flask_restplus import reqparse, Resource, marshal_with, Namespace
-from db.utils import query_db
+from jwt import ExpiredSignature
+
+from app.users.models import user_fields, User
 
 # define a namespace for rides
 api = Namespace('Auth', description='user accounts related operations')
-
-import run
-
-# database connection
-from app.users.models import user_fields
-
-DB = run.app.config['DATABASE_CONN']
 
 
 # error handlers
@@ -22,6 +17,17 @@ def handle_no_auth_exception(error):
     return {'message': 'No authentication token provided'}, 401
 
 
+@api.errorhandler(ExpiredSignature)
+def handle_expired_token(error):
+    return {'message': 'authentication token provided is expired'}, 401
+
+
+@api.errorhandler(WrongTokenError)
+def handle_expired_token(error):
+    return {'message': 'Provide a refresh token rather than an access token'}, 401
+
+
+# APi endpoints
 @api.route('/users', endpoint="list-all-users")
 class UserList(Resource):
     @jwt_required
@@ -30,9 +36,9 @@ class UserList(Resource):
         """
         :return a list of all users:
         """
-        query = """SELECT * FROM user_accounts"""
+        user = User()
         try:
-            all_users = query_db(DB[0], query, None)
+            all_users = user.get_users()
         except:
             return {
                 'message ': " Error getting user list"
@@ -42,7 +48,7 @@ class UserList(Resource):
 
 @api.route('/register', endpoint="register-users")
 class UserRegistration(Resource):
-    """user registration viewset"""
+    """user registration view set """
     # init parsers
     reg_parser = reqparse.RequestParser()
     reg_parser.add_argument('username', help='This field cannot be blank', required=True)
@@ -59,18 +65,15 @@ class UserRegistration(Resource):
         :return :
         """
         data = self.reg_parser.parse_args()  # parse input
+        # user object
+        user = User(data=data)
         # query accounts
-        query = """INSERT INTO user_accounts(username,first_name,second_name,email,password,user_type) 
-                  VALUES (%s,%s,%s,%s,%s,%s)"""
-        param = (data['username'], data['first_name'], data['second_name'],
-                 data['email'], data['password'], data['user_type'],)
-
         try:
-            query_db(DB[0], query=query, args=param)
+            new_user = user.add_user()
         except:
             return {
                        "error": "username or email address not unique"
-                   }, 500
+                   }, 200
         # create query tokens
         access_token = create_access_token(identity=data['username'])
         refresh_token = create_refresh_token(identity=data['username'])
@@ -78,7 +81,7 @@ class UserRegistration(Resource):
         return {'message': 'User {} was created'.format(data['username']),
                 'access_token': access_token,
                 'refresh_token': refresh_token,
-                'user': data
+                'user': new_user
                 }, 201
 
 
@@ -99,13 +102,11 @@ class UserProfileEdit(Resource):
         """update user details for logged in user"""
         data = self.edit_user_parser.parse_args()
         current_user = get_jwt_identity()
-        query = """SELECT username,first_name,second_name,email,password,user_type FROM user_accounts 
-                               WHERE username = %s AND password = %s"""
-        param = (current_user, data['password'])
+        user = User(data=data)
         # get current logged in user details
         try:
-            user = query_db(DB[0], query, param)
-            if len(user) != 1:
+            new_user = user.edit_user(current_user=current_user)
+            if new_user is False:
                 return {
                            'message': "Invalid password"
                        }, 401
@@ -113,35 +114,13 @@ class UserProfileEdit(Resource):
             return {
                        "message": "Error executing request",
                    }, 500
-        # get all non null data entries
-        for key in data.keys():
-            if data[key] is None:
-                data[key] = user[0][key]
 
-        if data['new_password'] is not None:
-            data['password'] = data['new_password']
-        # now run query to patch
-        query = """
-         UPDATE user_accounts
-             SET username  = %s,
-               first_name  = %s,
-               second_name = %s,
-               email       = %s,
-               password    = %s,
-               user_type   = %s
-             WHERE username = %s     
-             RETURNING *;    
-         """
-        param = (data['username'], data['first_name'], data['second_name'],
-                 data['email'], data['password'], data['user_type'], current_user)
-        query_db(conn=DB[0], query=query, args=param)
         try:
-            user = query_db(conn=DB[0], query=query, args=param)
             access_token = create_access_token(identity=data['username'])
             return {
                 'message': 'user details updated',
                 'access-token': access_token,
-                'details': user
+                'details': new_user
             }
         except:
             return {
@@ -153,13 +132,9 @@ class UserProfileEdit(Resource):
 class UserLogin(Resource):
     """USer login viewset  """
 
-    def __init__(self):
-        # initialise the user class
-        Resource.__init__(self)
-        # initialise the user login parser with necessary arguments
-        self.login_parser = reqparse.RequestParser()
-        self.login_parser.add_argument('username', help='This field cannot be blank', required=True)
-        self.login_parser.add_argument('password', help='This field cannot be blank', required=True)
+    login_parser = reqparse.RequestParser()
+    login_parser.add_argument('username', help='This field cannot be blank', required=True)
+    login_parser.add_argument('password', help='This field cannot be blank', required=True)
 
     def post(self):
         """
@@ -167,31 +142,27 @@ class UserLogin(Resource):
         :return dictionary:
         """
         data = self.login_parser.parse_args()
+        user = User(data=data)
+
         try:
-            query = """SELECT username,first_name,second_name,email FROM user_accounts 
-                      WHERE username = %s AND password = %s"""
-            param = (data['username'], data['password'])
-            try:
-                user = query_db(conn=DB[0], query=query, args=param)
-            except Exception:
-                raise Exception("error fetching")
-            if len(user) == 1:
-                access_token = create_access_token(identity=data['username'])
-                refresh_token = create_refresh_token(identity=data['username'])
-                return {
-                    'message': 'Logged in as {}'.format(data['username']),
-                    'access_token': access_token,
-                    'refresh_token': refresh_token,
-                    'user': user
-                }
-            else:
-                return {
-                           'message': 'invalid credentials'
-                       }, 401
-        except:
+            user = user.login()
+        except Exception:
             return {
-                       'message': 'Error processing request'
-                   }, 400
+                       'message': "server error logging in"
+                   }, 500
+        if len(user) == 1:
+            access_token = create_access_token(identity=data['username'])
+            refresh_token = create_refresh_token(identity=data['username'])
+            return {
+                'message': 'Logged in as {}'.format(data['username']),
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+                'user': user
+            }
+        else:
+            return {
+                       'message': 'invalid credentials'
+                   }, 401
 
 
 @api.route('/logout', endpoint="logout-users")
@@ -204,10 +175,10 @@ class UserLogout(Resource):
     def delete(self):
         """logout a user"""
         jti = get_raw_jwt()['jti']
-        query = """INSERT INTO jwt_blacklist(jwt) VALUES (%s)"""
-        param = (jti)
+        user = User()
+        param = (jti,)
         try:
-            res = query_db(conn=DB[0], query=query, args=param)
+            user.logout(param)
             return {"msg": "Successfully logged out"}, 200
         except:
             return {"msg": "Unsuccessful log out"}, 500
