@@ -13,9 +13,10 @@ api = Api(
     title='RideMyWay API',
     description="The API to v1-My-Way ride sharing platform.",
 )
-
+# database initialisation
 init_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
         username=app.config['DATABASE_USER'])
+# connect to database
 DB = connect_db(db_name=app.config['DATABASE_NAME'], password=app.config['DATABASE_PASSWORD'],
                 user=app.config['DATABASE_USER'])
 
