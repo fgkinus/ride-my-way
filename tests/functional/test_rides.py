@@ -20,7 +20,7 @@ def test_get_all_ride_requests(test_client):
     headers = {
         'Authorization': 'Bearer {}'.format(access_token)
     }
-    response = test_client.get('/api/v1/rides', headers=headers)
+    response = test_client.get('/api/v2/rides', headers=headers)
     json_data = json_of_response(response)
     assert response.status_code == 200
     # if database is not empty
@@ -40,7 +40,7 @@ def test_add_ride_offer(test_client):
         'Authorization': 'Bearer {}'.format(access_token)
     }
     response = test_client.post(
-        '/api/v1/rides', headers=headers,
+        '/api/v2/rides', headers=headers,
         data={
             "driver": "testuser",
             "origin": "thika",
@@ -52,7 +52,6 @@ def test_add_ride_offer(test_client):
         }
     )
     # verify a user who is not a river cannot add a request
-    json_data = json_of_response(response)
     assert response.status_code == 401
 
     # verify  a driver can add a ride offer
@@ -61,7 +60,7 @@ def test_add_ride_offer(test_client):
         'Authorization': 'Bearer {}'.format(access_token)
     }
     response = test_client.post(
-        '/api/v1/rides', headers=headers,
+        '/api/v2/rides', headers=headers,
         data={
             "driver": "testdtiver",
             "origin": "thika",
@@ -80,6 +79,7 @@ def test_add_ride_offer(test_client):
     assert 'id' in json_data['trip']
 
 
+
 def test_get_specific_ride_offer(test_client):
     """
     test api endpoint ro return specific ride offer
@@ -90,7 +90,7 @@ def test_get_specific_ride_offer(test_client):
     headers = {
         'Authorization': 'Bearer {}'.format(access_token)
     }
-    response = test_client.get('/api/v1/rides/1', headers=headers)
+    response = test_client.get('/api/v2/rides/1', headers=headers)
     json_data = json_of_response(response)
     assert response.status_code == 200
     assert 'ride-offers' in json_data
@@ -107,7 +107,7 @@ def test_get_ride_request_for_specific_ride_offer(test_client):
     headers = {
         'Authorization': 'Bearer {}'.format(access_token)
     }
-    response = test_client.get('/api/v1/rides/1/requests', headers=headers)
+    response = test_client.get('/api/v2/rides/1/requests', headers=headers)
     json_data = json_of_response(response)
     assert response.status_code == 200
     assert 'requests' in json_data
@@ -126,7 +126,7 @@ def test_add_ride_request_for_specific_ride_offer(test_client):
     headers = {
         'Authorization': 'Bearer {}'.format(access_token)
     }
-    response = test_client.post('/api/v1/rides/1/requests', headers=headers)
+    response = test_client.post('/api/v2/rides/1/requests', headers=headers)
     json_data = json_of_response(response)
     assert response.status_code == 201
     assert 'message' in json_data
@@ -135,27 +135,26 @@ def test_add_ride_request_for_specific_ride_offer(test_client):
     assert 'created' in json_data['request'][0]
 
 
-# def test_get_ride_request_responses(test_client):
-#     """
-#     Test the return responses for a request endpoints
-#     :param test_client:
-#     :return:
-#     """
-#     access_token = create_access_token('testuser')
-#     headers = {
-#         'Authorization': 'Bearer {}'.format(access_token)
-#     }
-#     response = test_client.get('/api/v1/rides/1/response', headers=headers)
-#     json_data = json_of_response(response)
-#     if len(json_data) > 0:
-#         assert response.status_code == 200
-#         assert 'response' in json_data
-#         assert isinstance(json_data['response'], list)
-#         assert json_data['response'][0]['request_id'] == 1
-#     else:
-#         assert response.status_code == 204
-#
-#     # ensure only integers can be passed as arguments
-#     response = test_client.get('/api/v1/rides/str/response', headers=headers)
-#     assert response.status_code == 400
-#     assert 'error ' in json_data[0]
+def test_get_ride_request_responses(test_client):
+    """
+    Test the return responses for a request endpoints
+    :param test_client:
+    :return:
+    """
+    access_token = create_access_token('testuser')
+    headers = {
+        'Authorization': 'Bearer {}'.format(access_token)
+    }
+    response = test_client.get('/api/v2/rides/1/response', headers=headers)
+    json_data = json_of_response(response)
+    if len(json_data) > 0:
+        assert response.status_code == 200
+        assert 'response' in json_data or 'message' in json_data
+    else:
+        assert response.status_code == 204
+
+    # ensure only integers can be passed as arguments
+    response = test_client.get('/api/v2/rides/str/response', headers=headers)
+    assert response.status_code == 400
+    json_data = json_of_response(response)
+    assert 'error' in json_data
