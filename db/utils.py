@@ -40,13 +40,15 @@ class Database(object):
             query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
             conn = self.connect_db('postgres', username, password)
             conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-            self.query_db_no_result(query, ())
+            cursor = conn.cursor()
+            cursor.execute(query)
             conn.close()
         else:
             query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
             conn = self.connect_db('postgres', username, password, url=self.url)
             conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-            self.query_db_no_result(query, ())
+            cursor = conn.cursor()
+            cursor.execute(query)
             conn.close()
 
     def create_tables(self, create_queries=queries.tables_list):
