@@ -13,6 +13,7 @@ class Config(object):
     DATABASE_NAME = os.getenv('DB_NAME')
     DATABASE_USER = os.getenv('DB_USER')
     DATABASE_PASSWORD = os.getenv('DB_PASSWORD')
+    DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 class DevelopmentConfig(Config):
@@ -29,6 +30,7 @@ class TestingConfig(Config):
     DATABASE_NAME = os.getenv('TESTING_DB_NAME')
     DATABASE_USER = os.getenv('TESTING_DB_USER')
     DATABASE_PASSWORD = os.getenv('TESTING_DB_PASSWORD')
+
 
 
 class StagingConfig(Config):
