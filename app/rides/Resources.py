@@ -2,17 +2,15 @@ from __future__ import absolute_import
 import datetime
 from flask import jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from flask_jwt_extended.exceptions import NoAuthorizationError
-from flask_restplus import Resource, reqparse, Namespace, fields
-from db.utils import query_db
+from flask_jwt_extended.exceptions import NoAuthorizationError, WrongTokenError
+from flask_restplus import Resource, reqparse, Namespace
 
 # define a namespace for rides
+from jwt import ExpiredSignature
+
+from app.rides.models import Ride
+
 api = Namespace('rides', description='rides related operations')
-
-# database connection
-import run
-
-DB = run.app.config['DATABASE_CONN']
 
 
 # error handlers
@@ -20,6 +18,16 @@ DB = run.app.config['DATABASE_CONN']
 def handle_no_auth_exception(error):
     """Handle ethe jwt required exception when none s provided"""
     return {'message': 'No authentication token provided'}, 401
+
+
+@api.errorhandler(ExpiredSignature)
+def handle_expired_token(error):
+    return {'message': 'authentication token provided is expired'}, 401
+
+
+@api.errorhandler(WrongTokenError)
+def handle_expired_token(error):
+    return {'message': 'Provide a refresh token rather than an access token'}, 401
 
 
 @api.route('/rides', endpoint='list-rides')
@@ -41,14 +49,9 @@ class RideOffers(Resource):
     @jwt_required
     def get(self):
         """List all ride offers"""
-        query = """SELECT * FROM trips"""
-        ride_offers = query_db(conn=DB[0], query=query, args=())
-        # convert the time stamps to json serializable format
-        for ride in ride_offers:
-            ride['time_added'] = ride['time_added'].strftime('%c')
-
+        ride = Ride()
         try:
-            ride_offers = query_db(conn=DB[0], query=query, args=())
+            ride_offers = ride.list_all_rides()
             return jsonify({'ride-offers': ride_offers})
         except:
             return {
@@ -63,42 +66,25 @@ class RideOffers(Resource):
         # set the driver to current logged in user
         data['driver'] = get_jwt_identity()
         # verify user is a driver and can add rides
-        get_user = """SELECT * FROM user_accounts WHERE username=%s"""
-        user = query_db(conn=DB[0], query=get_user, args=(data['driver'],))
-
+        ride = Ride(data=data)
         try:
-            if user[0]['user_type'] != 'driver':
+            new_ride = ride.add_ride(get_jwt_identity())
+            if new_ride is False:
                 return {
                            "message": "Unauthorised operation",
                            "Details": "A passenger is not permitted to add trips"
                        }, 401
         except:
             return {
-                       "error": "could not get current user details"
+                       "error": "could not complete operation"
                    }, 500
-        # add the use Trip to database
-        query = """INSERT INTO trips (origin,destination,driver,route,vehicle_model,vehicle_capacty,departure_time)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id ;"""
-        # default departure time variable
-        depart = datetime.datetime.now(datetime.timezone.utc)
-        data['departure_time'] = depart
-        param = (data['origin'], data['destination'], data['driver'], data['route'], data['vehicle_model'],
-                 data['vehicle_capacity'], data['departure_time'])
-        # a try catch to handle errors arising from query execution
-        try:
-            id = query_db(DB[0], query, param)
-            # convert date time to serializable object
-            data['departure_time'] = depart.strftime('%c')
-            data['time_added'] = data['departure_time']
-            data['id'] = id[0]['id']
-            return {
-                       'message': "new trip added",
-                       'trip': data,
-                   }, 201
-        except:
-            return {
-                       'message': 'Error adding Ride',
-                   }, 500
+
+            # a try catch to handle errors arising from query execution
+
+        return {
+                   'message': "new trip added",
+                   'trip': new_ride,
+               }, 201
 
 
 @api.route('/rides/<offer_id>', endpoint='get-ride')
@@ -110,10 +96,9 @@ class GetRideOffer(Resource):
     @jwt_required
     def get(self, offer_id):
         """Fetch a specific ride"""
-        query = """SELECT * FROM trips WHERE id=%s"""
-        param = (offer_id,)
+        ride = Ride()
         try:
-            ride_offer = query_db(conn=DB[0], query=query, args=param)
+            ride_offer = ride.get_ride(offer_id)
             return jsonify(
                 {
                     'ride-offers': ride_offer
@@ -132,48 +117,21 @@ class GetRideOffer(Resource):
         :param offer_id:
         :return:
         """
-        # first get the ride
-        query = """SELECT * FROM trips WHERE id=%s"""
-        param = (offer_id,)
-        try:
-            ride_offer = query_db(conn=DB[0], query=query, args=param)
-        except:
-            return jsonify(
-                {
-                    'message': ' Error getting ride '
-                }
-            ), 500
+        ride = Ride().delete_ride(ride_id=offer_id, current_user=get_jwt_identity())
         # ensure a ride request exists
-        if len(ride_offer) != 1:
+        if ride[1] == 1:
             return {
                        "message": "Trip offer not Found"
                    }, 204
-        # # verify the logged in user is the owner of the ride
-        current_user = get_jwt_identity()
-        try:
-            if ride_offer[0]['driver'] != current_user:
-                return {
-                           'message': " sorry {} You are not authorised to remove this ride".format(current_user)
-                       }, 401
-        except:
+        elif ride[1] == 2:
             return {
-                       "error": "Could not verify ride ownership",
-                       "driver": ride_offer[0]['driver'],
-                       'current_user': current_user
+                       'message': " sorry {} You are not authorised to remove this ride".format(get_jwt_identity())
                    }, 401
-        # delete the ride returning the deleted ride
-        query = """DELETE FROM trips WHERE id = %s RETURNING *"""
-        try:
-            ride = query_db(conn=DB[0], query=query, args=(offer_id,))
-            return {
-                       'message': 'Record successfully deleted',
-                   }, 200
-        except:
-            return jsonify(
-                {
-                    "message": "could not complete request"
-                }
-            ), 500
+
+        return {
+                   'message': 'Record successfully deleted',
+                   'ride': ride
+               }, 200
 
 
 @api.route('/rides/<offer_id>/requests', endpoint='offer-ride-requests')
@@ -186,10 +144,9 @@ class RideRequests(Resource):
         :param offer_id:
         :return request, ride:
         """
-        query = """SELECT * FROM trips WHERE id=%s"""
-        param = (offer_id,)
+        ride = Ride()
         try:
-            ride_offer = query_db(conn=DB[0], query=query, args=param)
+            ride_offer = ride.get_ride_request(ride_id=offer_id)
         except:
             return jsonify(
                 {
@@ -197,24 +154,15 @@ class RideRequests(Resource):
                 }
             ), 500
         # ensure a ride request exists
-        if len(ride_offer) != 1:
+        if ride_offer is False:
             return {
                        "message": "Trip offer not Found"
                    }, 204
-        # now get ride requests for the offer
-        query = """SELECT
-                  tr.id,
-                  a.username,
-                  tr.created
-                FROM trip_requests tr
-                  INNER JOIN user_accounts a ON tr.requester = a.id
-                WHERE tr.trip_id = %s"""
         try:
-            requests = query_db(DB[0], query, (offer_id,))
             return jsonify(
                 {
-                    "requests": requests,
-                    'ride-details': ride_offer
+                    "requests": ride_offer[0],
+                    'ride-details': ride_offer[1]
                 }
             )
         except:
@@ -225,34 +173,21 @@ class RideRequests(Resource):
     @jwt_required
     def post(self, offer_id):
         """add a new ride request"""
-        try:
-            username = get_jwt_identity()
-        except:
-            return {'error': 'session data not available'}
-        # queries
-        query_id = "SELECT id FROM user_accounts WHERE username= %s;"
-        query_offer = "SELECT * FROM trips WHERE id= %s;"
-        query_insert = """INSERT INTO trip_requests(trip_id, requester) VALUES (%s,%s) returning *;"""
-        # run queries
-        ride_offer = query_db(DB[0], query_offer, (offer_id,))
-        user_id = query_db(DB[0], query_id, (username,))
 
-        if len(ride_offer) != 1:
+        username = get_jwt_identity()
+        ride = Ride()
+        ride_request = ride.add_ride_request(ride_id=offer_id, username=username)
+
+        if ride_request is False:
             return {
                        "message": "ride offer not found"
                    }, 204
 
-        if len(user_id) == 1:
-            user_id = user_id[0]['id']
-
-        param = (offer_id, user_id)
-        request = query_db(DB[0], query_insert, param)
-
         return make_response(
             jsonify(
                 {
-                    "message": "Trip added",
-                    "request": request
+                    "message": "Trip request added",
+                    "request": ride_request
                 }
             ), 201
         )
@@ -264,11 +199,7 @@ class RemoveRequests(Resource):
     @jwt_required
     def delete(self, req_id):
         """delete a ride request if you own the ride"""
-        query_request = """delete from trip_requests  where id =%s 
-                            and requester= (select id from user_accounts where username = %s) returning  *;"""
-        param = (req_id, get_jwt_identity())
-        request = query_db(conn=DB[0], query=query_request, args=param)
-
+        request = Ride().remove_ride_request(req_id, get_jwt_identity())
         if len(request) != 1:
             return {
                        'message': 'ride not deleted',
@@ -287,15 +218,9 @@ class ListRideRequests(Resource):
     @jwt_required
     def get(self):
         """List all ride requests"""
-        query = """SELECT
-                  trips.id,
-                  trips.trip_id,
-                  account.username,
-                  trips.created
-                FROM trip_requests trips
-                  INNER JOIN user_accounts account ON trips.requester = account.id """
+        ride = Ride()
 
-        requests = query_db(DB[0], query, None)
+        requests = ride.list_ride_request()
         return jsonify(
             {
                 "requests": requests
@@ -318,40 +243,28 @@ class RespondToRequest(Resource):
             return {
                        'message': 'Invalid Response'
                    }, 400
-        # query definition
-        query_add_response = """INSERT INTO request_responses(request_id, response) VALUES (%s,%s) returning *;"""
-        query_get_request = """SELECT
-                              tr.trip_id,
-                              t.driver
-                            FROM trip_requests tr
-                              INNER JOIN trips t ON tr.trip_id = t.id
-                            WHERE tr.id = %s"""
-        # fetch ride request instance
+        ride = Ride()
         try:
-            request = query_db(DB[0], query_get_request, (req_id,))
-        except:
-            return {"error": "Could not fetch trip"}
-        # verify request exists
-        if len(request) != 1:
-            return {}, 204
-        # verify current user owns the trip and can accept request
-        if request[0]['driver'] != get_jwt_identity():
-            return {"message": "Unauthorised operation"}, 401
-        # Add response to DB
-        try:
-            added_response = query_db(DB[0], query_add_response, (req_id, response))
-            return jsonify(
-                {
-                    'message': 'Response recorded',
-                    'response': added_response
-                }
-            )
+            added_response = ride.respond_to_request(req_id, response, get_jwt_identity())
         except:
             return {
                        "message": "Error adding response",
                        "details": "Check that response is valid ie {} or {}".format('Reject', 'Accept'),
                        "more-details": "If response has previously been made the operation will fail too"
                    }, 400
+        # verify request exists
+        if added_response[0] is False and added_response[1] == 1:
+            return {}, 204
+        # verify current user owns the trip and can accept request
+        if added_response[0] is False and added_response[1] == 2:
+            return {"message": "Unauthorised operation.You don't own the request"}, 401
+        # Add response to DB
+        return jsonify(
+            {
+                'message': 'Response recorded',
+                'response': added_response
+            }
+        )
 
 
 @api.route('/rides/<req_id>/response', endpoint='get-ride-response')
@@ -362,19 +275,9 @@ class GetRequestResponse(Resource):
     @jwt_required
     def get(self, req_id):
         """get response for rides if you are the requester or owner of ride"""
-        query = """
-                SELECT
-              account.username,
-              req_res.response,
-              request.id trip_id,
-              trips.driver
-            FROM request_responses req_res INNER JOIN trip_requests request on req_res.request_id = request.id
-              inner join user_accounts account on request.requester = account.id
-              inner join trips on request.trip_id = trips.id
-            where req_res.id = %s
-                """
+        ride = Ride()
         try:
-            response = query_db(DB[0], query, (req_id,))
+            response = ride.get_req_response(req_id)
         except:
             return {'error': "couldn't fetch response to request"}, 400
         # verify responses are present
