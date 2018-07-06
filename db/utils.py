@@ -29,6 +29,16 @@ class Database(object):
             except Exception:
                 raise psycopg2.DatabaseError("could not connect to database")
 
+    def connect_return_class(self, url=None):
+        if url is None:
+            raise Exception("Url not found")
+        else:
+            try:
+                self.conn = psycopg2.connect(url, sslmode='require')
+                return self
+            except Exception:
+                raise psycopg2.DatabaseError("could not connect to database")
+
     def get_connection(self):
         if isinstance(self.conn, psycopg2.extensions.connection):
             return self.conn
@@ -40,15 +50,13 @@ class Database(object):
             query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
             conn = self.connect_db('postgres', username, password)
             conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-            cursor = conn.cursor()
-            cursor.execute(query)
+            self.query_db_no_result(query, ())
             conn.close()
         else:
             query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
             conn = self.connect_db('postgres', username, password, url=self.url)
             conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-            cursor = conn.cursor()
-            cursor.execute(query)
+            self.query_db_no_result(query, ())
             conn.close()
 
     def create_tables(self, create_queries=queries.tables_list):
