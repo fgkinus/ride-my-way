@@ -10,13 +10,11 @@ app = create_app(config_name)  # create the Flask Instance
 # api instance is instantiated
 api = Api(
     app, version='2.0',
-    title='RideMyWay API',
-    description="The API to v2-My-Way ride sharing platform.",
-)
+    title='RideMyWay API')
+
 register_namespace(api)
 # configure JWT
 app.config['JWT_SECRET_KEY'] = app.config['SECRET']
-# app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 # app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 jwt = JWTManager(app)
