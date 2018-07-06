@@ -90,12 +90,12 @@ class Database(object):
         query = """CREATE DATABASE {} ENCODING ='utf8'""".format(dbname)
         conn = self.connect_db('postgres', username, password)
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        self.query_db_no_result(self.conn, query, ())
+        self.query_db_no_result(query, ())
         conn.close()
 
     def create_tables(self, conn, create_queries=queries.tables_list):
         for query in create_queries:
-            self.query_db_no_result(conn=conn, query=query, args=())
+            self.query_db_no_result(query=query, args=())
 
     def query_db(self, query, args):
         """
@@ -109,7 +109,10 @@ class Database(object):
         conn = self.get_connection()
         with conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                cur.execute(query, args)
+                try:
+                    cur.execute(query, args)
+                except:
+                    raise psycopg2.DatabaseError
                 result = cur.fetchall()
                 return result
 
@@ -126,25 +129,24 @@ class Database(object):
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute(query, args)
 
-    def check_db_exists(self, conn, db_name='rmw'):
+    def check_db_exists(self, db_name='rmw'):
         """Verify that db exists"""
         query = """select exists(
                  SELECT datname FROM pg_catalog.pg_database WHERE datname=%s
                 );
                 """
-        return self.query_db(conn, query, (db_name,))
+        return self.query_db(query, (db_name,))
 
-    @staticmethod
-    def close_conn(conn):
-        conn.close()
-        return conn
+    def close_conn(self):
+        self.conn.close()
+        return self.conn
 
     def init_db(self):
         """initialise database"""
         # create db connecton to root db
-        conn = self.connect_db(db_name='postgres', username=self.username, password=self.password)
+        self.conn = self.connect_db(db_name='postgres', username=self.username, password=self.password)
         # verify db exists
-        if self.check_db_exists(conn=conn, db_name=self.db_name)[0]['exists']:
+        if self.check_db_exists(db_name=self.db_name)[0]['exists']:
             # set connection
             self.conn = self.connect_db(db_name=self.db_name, username=self.username, password=self.password)
             return self
